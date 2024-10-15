@@ -22,15 +22,17 @@ public class Main {
 
         Bræt.createBræt(rødSpiller,blåSpiller);
 
-        int i=2;
+
+
+        int i=0;
         for (Brik brik: rødSpiller.getSpillerBrikker()){
-            brik.setPos(Bræt.bræt[i][8]);
+            Bræt.setBrik(brik,i,8);
             i++;
         }
 
-        int j=2;
+        int j=0;
         for (Brik brik: blåSpiller.getSpillerBrikker()){
-            brik.setPos(Bræt.bræt[j][9]);
+            Bræt.setBrik(brik,j,9);
             j++;
         }
         recursiveMain();
@@ -52,10 +54,9 @@ public class Main {
     }
 
     public static void recursiveMain(){
-        Bræt.spillere[0].testKontroller();
-        char move = Main.input.next().charAt(0);
-
+        Bræt.spillere[0].setActivePlayer();
+        Bræt.spillere[1].setActivePlayer();
+        Bræt.nyTur();
             recursiveMain();
-
     }
 }

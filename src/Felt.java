@@ -1,21 +1,29 @@
 public class Felt {
     int[] pos = new int[2];
-    boolean feltTomt;
     boolean målFelt;
     Brik brikPåFelt;
     Bold boldPåFelt;
 
-    public Felt(int xPos, int yPos){
-        this.pos[0]=xPos;
-        this.pos[1]=yPos;
+    public Felt(int yPos, int xPos){
+        this.pos[0]=yPos;
+        this.pos[1]=xPos;
+
     }
 
-    public boolean getFeltTomt(){
-            return feltTomt;
+    public void fjernBrik(){
+        this.brikPåFelt=null;
+    }
+    public void setBrikPåFelt(Brik brik){
+        brik.setPos(this.pos[0],this.pos[1]);
+        this.brikPåFelt=brik;
     }
     public Brik getBrikPåFelt(){
         return brikPåFelt;
     }
+    public boolean getFeltTomt(){
+        return brikPåFelt == null;
+    }
+
 
     public Bold getBoldPåFelt() {
         return boldPåFelt;

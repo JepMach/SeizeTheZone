@@ -1,13 +1,14 @@
 public class Brik {
     String navn;
-    Felt pos;
+    int [] brikPos = new int[2];
     Bold harBold;
-    boolean væltet;
+    boolean væltet=false;
     Spiller brikEjer;
     boolean hold;
     //True = rød, false = blå
     boolean brugtBevægelse;
     boolean brugtAction;
+    int moveCost=1;
 
 
     public Brik(String navn){
@@ -29,36 +30,44 @@ public class Brik {
     }
 
     /*------------- Getters og setter ---------------*/
-
-    public Felt getPos() {
-        return pos;
+    public void setPos(int y, int x) {
+       this.brikPos[0]=y;
+       this.brikPos[1]=x;
     }
-
-    public void setPos(Felt pos) {
-        this.pos = pos;
-        Bræt.bræt[this.pos.getPos()[0]][this.pos.getPos()[1]].brikPåFelt=this;
-        Bræt.bræt[this.pos.getPos()[0]][this.pos.getPos()[1]].feltTomt=false;
+    public int[] getBrikPos() {
+        return brikPos;
     }
-
-    public void brugBevægelse(boolean brugtBevægelse) {
-        this.brugtBevægelse = brugtBevægelse;
+    public int getMoveCost(){
+        return moveCost;
     }
-
-    public void brugAction(boolean brugtAction) {
-        this.brugtAction = brugtAction;
+    public void brugBevægelse() {
+        this.brikEjer.brugAction(moveCost);
+        this.brugtBevægelse = true;
+    }
+    public void brugAction() {
+        this.brugtAction = true;
+    }
+    public void resetBrik(){
+        this.brugtBevægelse=false;
+        this.brugtAction=false;
+    }
+    public void væltBrik(){
+        this.væltet=true;
+    }
+    public void rejsBrik(){
+        this.væltet=false;
     }
     /*------------------------------------------------------*/
 
     public Felt[][] getBrikBevægelse(){
         Felt[][] brikBevægelse = new Felt[5][5];
 
-        int x=-2;
         int y=-2;
-
+        int x=-2;
         for (int i=0; i<5; i++){
             for (int j=0; j<5; j++){
                 try {
-                    brikBevægelse[i][j] = Bræt.bræt[this.pos.getPos()[0] + x][this.pos.getPos()[1] + y];
+                    brikBevægelse[i][j] = Bræt.bræt[this.getBrikPos()[0] + y][this.getBrikPos()[1] + x];
                 } catch (Exception ignored){}
                 x++;
                 }
