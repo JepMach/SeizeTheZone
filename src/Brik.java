@@ -2,6 +2,7 @@ public class Brik {
     String navn;
     int [] brikPos = new int[2];
     Bold harBold;
+    boolean boldHolder=false;
     boolean væltet=false;
     Spiller brikEjer;
     boolean hold;
@@ -56,6 +57,11 @@ public class Brik {
     }
     public void rejsBrik(){
         this.væltet=false;
+    }
+    public void pickUpBold(Bold bold){
+        this.harBold=bold;
+        this.boldHolder=true;
+        Bræt.bræt[this.getBrikPos()[0]][this.getBrikPos()[1]].fjernBold();
     }
     /*------------------------------------------------------*/
 

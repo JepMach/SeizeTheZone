@@ -23,8 +23,13 @@ public class Felt {
     public boolean getFeltTomt(){
         return brikPåFelt == null;
     }
-
-
+    public void fjernBold(){
+        this.boldPåFelt=null;
+    }
+    public void setBoldPåFelt(Bold bold){
+        bold.setBoldFelt(this);
+        this.boldPåFelt=bold;
+    }
     public Bold getBoldPåFelt() {
         return boldPåFelt;
     }

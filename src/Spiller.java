@@ -3,6 +3,7 @@ public class Spiller {
     int mål;
     boolean activePlayer;
     boolean angriber;
+    boolean harBold;
     boolean hold;
     //true = rød, false = blå
     static final int totalActionPoints=1;
@@ -57,6 +58,12 @@ public class Spiller {
     }
     public boolean isAngriber() {
         return this.angriber;
+    }
+    public void givBold(){
+        this.harBold=true;
+    }
+    public void tabBold(){
+        this.harBold=false;
     }
     public boolean hold() {
         return this.hold;

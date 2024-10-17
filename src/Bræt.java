@@ -117,16 +117,12 @@ public class Bræt {
             clearValg();
             return;
         }
-
         int[] dir;
         if (brik == valgteBrik && valgteFelter.size()>1) {
             dir = getDirection(valgteFelter.get(valgteFelter.size() - 2), felt);
         } else {
             dir = getDirection(bræt[brik.getBrikPos()[0]][brik.getBrikPos()[1]], felt);
         }
-
-
-
         if (!felt.getFeltTomt()) {
             Brik tBrik = felt.getBrikPåFelt();
             if (!brikQueue.contains(brik)){
@@ -146,12 +142,10 @@ public class Bræt {
                     setBrik(getValgteBrik(),getValgteBrik().getBrikPos()[0],getValgteBrik().getBrikPos()[1]);
                 }
             }
-
         } else {
             Felt lastFelt =bræt[brik.getBrikPos()[0]][brik.getBrikPos()[1]];
             fjernBrik(brik.getBrikPos()[0], brik.getBrikPos()[1]);
             setBrik(brik, felt.getPos()[0], felt.getPos()[1]);
-
             try {
                 brikQueue.removeLast();
                 Brik qBrik = brikQueue.getLast();
