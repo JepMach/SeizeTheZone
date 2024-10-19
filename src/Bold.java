@@ -13,11 +13,9 @@ public class Bold {
     public Bold(){
     }
 
-    public static void createBold(Spiller spiller,int y, int x){
+    public static void createBold(int y, int x){
         Bold bold = new Bold();
-        spillerMedBold=spiller;
-        spiller.givBold();
-        Bræt.bræt[y][x].setBoldPåFelt(bold);
+        bold.setBoldFelt(Bræt.bræt[y][x]);
     }
     public static void turnOver(Spiller spiller1, Spiller spiller2){
         spiller2.tabBold();
@@ -37,6 +35,7 @@ public class Bold {
     public void setBoldFelt(Felt felt){
         boldFelt=felt;
         this.setBoldPos(felt.getPos()[0],felt.getPos()[1]);
+        felt.setBoldPåFelt(this);
     }
     public void setBoldBrik(Brik brik){
         boldBrik=brik;

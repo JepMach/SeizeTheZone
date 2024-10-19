@@ -21,7 +21,7 @@ public class Felt {
         return brikPåFelt;
     }
     public boolean getFeltTomt(){
-        return brikPåFelt == null;
+        return boldPåFelt == null;
     }
     public void fjernBold(){
         this.boldPåFelt=null;
