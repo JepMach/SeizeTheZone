@@ -187,11 +187,126 @@ public class Bræt {
         valgteFelter.clear();
         valgteBrik = null;
     }
+
+    public static int getFeltStatus(Felt felt){
+        /*
+        0 = none
+        1 = valgte felter
+        2 = mulige felter
+        3 = valgte brik
+         */
+        int status =0;
+        if (valgteFelter.contains(felt)){
+            status=1;
+            return status;
+        }
+        if (muligeFelter.contains(felt)){
+            status=2;
+        }
+        if (valgteBrik==felt.getBrikPåFelt()){
+            status=3;
+        }
+        return status;
+    }
+
+    public static void printFeltStatusTom(Felt felt, StringBuilder string){
+    //Tomt felt
+        switch (getFeltStatus(felt)){
+            case 0:
+                string.append("  ");
+                break;
+            /*    */
+            case 1:
+                string.insert(1,"¤¤");
+                break;
+            /* ¤¤ */
+            case 2:
+                string.insert(1,">>");
+                break;
+            /* >> */
+            default:
+                string.append("  ");
+                break;
+            /*    */
+
+        }
+    }
+    public static void printFeltStatusObjekt(Felt felt, StringBuilder string){
+        //Spil objekt på felt
+        switch (getFeltStatus(felt)){
+            case 0:
+                string.insert(0," ").append(" ");
+                break;
+            /* GO */
+            case 1:
+                string.insert(0,"¤").append("¤");
+                break;
+            /*¤QB¤*/
+            case 2:
+                string.insert(0,">").append(">");
+                break;
+            /*>WR>*/
+            default:
+            string.insert(0," ").append(" ");
+            break;
+            /* TE */
+
+        }
+    }
     /*------------------------------------------------------*/
 
     public static void printBoard(){
+        int printVærdi = 0;
+        Felt felt;
+        /*
+        */
+
+
 
         for (int i=0;i<8;i++){
+            for (int j=0;j<18;j++){
+                felt=bræt[i][j];
+                StringBuilder string = new StringBuilder();
+
+                switch (felt.getFeltVærdi()){
+                    case 0:
+                        string.append("  ");
+                        break;
+                        /*__*/
+                    case 1:
+                        string.append("<>");
+                        break;
+                        /*<>*/
+                    case 2:
+                        string.append(felt.getBrikPåFelt().navn);
+                        break;
+                        /*QB*/
+                    case 3:
+                        string.append(felt.getBrikPåFelt().navn).append("<>");
+                        break;
+                        /*QB<>*/
+                    default:
+                        string.append("GO");
+                        break;
+                        /*GO*/
+                }
+
+                if (felt.getFeltVærdi()==0){
+                    printFeltStatusTom(felt,string);
+                } else {
+                    printFeltStatusObjekt(felt,string);
+                }
+                string.insert(0,"[");
+                string.append("]");
+                System.out.print(string);
+            }
+            System.out.println(" ");
+        }
+
+
+
+
+        /*for (int i=0;i<8;i++){
             for (int j=0;j<18;j++){
                 if (muligeFelter.contains(bræt[i][j])){
                     if (valgteFelter.contains(bræt[i][j])){
@@ -221,6 +336,6 @@ public class Bræt {
                 }
             }
             System.out.println(" ");
-        }
+        }*/
     }
 }

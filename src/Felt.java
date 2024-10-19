@@ -41,4 +41,33 @@ public class Felt {
     public boolean isMålFelt() {
         return målFelt;
     }
+
+    public int getFeltVærdi(){
+        /*
+        -1 = mål felt
+        0 = tomt felt
+        1 = bold på felt
+        2 = brik på felt
+        3 = brik med bold på felt
+        */
+        int feltVærdi=0;
+        if (this.getFeltTomt()){
+            if (this.isMålFelt()){
+                feltVærdi+=-1;
+                return feltVærdi;
+            }
+            return feltVærdi;
+        }
+        if (!(this.getBoldPåFelt()==null)){
+            feltVærdi++;
+            return feltVærdi;
+        }
+        if (!(this.getBrikPåFelt()==null)){
+            feltVærdi+=2;
+            if (this.getBrikPåFelt().isBoldHolder()){
+                feltVærdi++;
+            }
+        }
+        return feltVærdi;
+    }
 }

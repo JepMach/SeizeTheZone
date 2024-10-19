@@ -58,6 +58,9 @@ public class Brik {
     public void rejsBrik(){
         this.væltet=false;
     }
+    public boolean isBoldHolder(){
+        return this.boldHolder;
+    }
     public void pickUpBold(Bold bold){
         this.harBold=bold;
         this.boldHolder=true;
