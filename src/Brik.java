@@ -1,21 +1,84 @@
-public class Brik {
-    String navn;
-    int [] brikPos = new int[2];
-    Bold harBold;
-    boolean boldHolder=false;
-    boolean væltet=false;
-    Spiller brikEjer;
-    boolean hold;
-    //True = rød, false = blå
-    boolean brugtBevægelse;
-    boolean brugtAction;
-    int moveCost=1;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Brik extends SpilObjekt implements AtributesAndActions{
+    public final String navn;
+    private Bold harBold;
+    private boolean væltet=false;
+    private Spiller ejer;
+    private boolean brugtBevægelse;
+    private boolean brugtAction;
+    private final ArrayList<Felt> bevægelse;
 
 
-    public Brik(String navn){
+    public Brik(String navn, ArrayList<Felt> bevægelse){
         this.navn=navn;
-
+        this.bevægelse = bevægelse;
     }
+    @Override
+    public Brik getObj() {
+        return this;
+    }
+    @Override
+    public String getObjType() {
+        return "BRIK";
+    }
+    public ArrayList<Felt> getBevægelse(){
+        return this.bevægelse;
+    }
+
+    public ArrayList<Felt> createBevægelse(){
+        Felt[][] brikBevægelse = new Felt[5][5];
+        ArrayList<Felt> bevægelsesListe = new ArrayList<>();
+        int y=-2;
+        int x=-2;
+        for (int i=0; i<5; i++){
+            for (int j=0; j<5; j++){
+                try {
+                    brikBevægelse[i][j] = Bræt.getBræt()[this.getObjPos().getX()][this.getObjPos().getY()];
+                } catch (Exception ignored){}
+                x++;
+            }
+            x=-2;
+            y++;
+        }
+        for (Felt[] array : brikBevægelse) {
+            bevægelsesListe.addAll(Arrays.asList(array));
+        }
+
+        return bevægelsesListe;
+    }
+    public boolean isVæltet(){
+        return this.væltet;
+    }
+    public Bold getBold(){
+        return this.harBold;
+    }
+    public void pickUpBold(Bold bold){
+        this.harBold=bold;
+        bold.fjern();
+    }
+    public void brugAction() {
+        this.brugtAction=true;
+    }
+    public void brugBevægelse() {
+        this.brugtBevægelse = true;
+    }
+
+    @Override
+    public void tackle(){
+        System.out.println("TACKLE");
+    }
+    @Override
+    public int tackleCost(){
+        return 3;
+    }
+
+
+
+
+
+
 
     public static void createSpillerBrik(Spiller spiller, String brikNavn){
         Brik nyBrik = new Brik(brikNavn);
@@ -38,16 +101,9 @@ public class Brik {
     public int[] getBrikPos() {
         return brikPos;
     }
-    public int getMoveCost(){
-        return moveCost;
-    }
-    public void brugBevægelse() {
-        this.brikEjer.brugAction(moveCost);
-        this.brugtBevægelse = true;
-    }
-    public void brugAction() {
-        this.brugtAction = true;
-    }
+
+
+
     public void resetBrik(){
         this.brugtBevægelse=false;
         this.brugtAction=false;
@@ -61,63 +117,7 @@ public class Brik {
     public boolean isBoldHolder(){
         return this.boldHolder;
     }
-    public void pickUpBold(Bold bold){
-        this.harBold=bold;
-        this.boldHolder=true;
-        Bræt.bræt[this.getBrikPos()[0]][this.getBrikPos()[1]].fjernBold();
-    }
+
     /*------------------------------------------------------*/
-
-    public Felt[][] getBrikBevægelse(){
-        Felt[][] brikBevægelse = new Felt[5][5];
-
-        int y=-2;
-        int x=-2;
-        for (int i=0; i<5; i++){
-            for (int j=0; j<5; j++){
-                try {
-                    brikBevægelse[i][j] = Bræt.bræt[this.getBrikPos()[0] + y][this.getBrikPos()[1] + x];
-                } catch (Exception ignored){}
-                x++;
-                }
-
-            x=-2;
-            y++;
-        }
-
-        return brikBevægelse;
-
-        /*
-        brikBevægelse[4][0]=Bræt.bræt[this.pos.getPos()[0]-2][this.pos.getPos()[1]+2];
-        brikBevægelse[4][1]=Bræt.bræt[this.pos.getPos()[0]-1][this.pos.getPos()[1]+2];
-        brikBevægelse[4][2]=Bræt.bræt[this.pos.getPos()[0]][this.pos.getPos()[1]+2];
-        brikBevægelse[4][3]=Bræt.bræt[this.pos.getPos()[0]+1][this.pos.getPos()[1]+2];
-        brikBevægelse[4][4]=Bræt.bræt[this.pos.getPos()[0]+2][this.pos.getPos()[1]+2];
-
-        brikBevægelse[3][0]=Bræt.bræt[this.pos.getPos()[0]-2][this.pos.getPos()[1]+1];
-        brikBevægelse[3][1]=Bræt.bræt[this.pos.getPos()[0]-1][this.pos.getPos()[1]+1];
-        brikBevægelse[3][2]=Bræt.bræt[this.pos.getPos()[0]][this.pos.getPos()[1]+1];
-        brikBevægelse[3][3]=Bræt.bræt[this.pos.getPos()[0]+1][this.pos.getPos()[1]+1];
-        brikBevægelse[3][4]=Bræt.bræt[this.pos.getPos()[0]+2][this.pos.getPos()[1]+1];
-
-        brikBevægelse[2][0]=Bræt.bræt[this.pos.getPos()[0]-2][this.pos.getPos()[1]];
-        brikBevægelse[2][1]=Bræt.bræt[this.pos.getPos()[0]-1][this.pos.getPos()[1]];
-        //Brik pos brikBevægelse[2][2]
-        brikBevægelse[2][3]=Bræt.bræt[this.pos.getPos()[0]+1][this.pos.getPos()[1]];
-        brikBevægelse[2][4]=Bræt.bræt[this.pos.getPos()[0]+2][this.pos.getPos()[1]];
-
-        brikBevægelse[1][0]=Bræt.bræt[this.pos.getPos()[0]-2][this.pos.getPos()[1]-1];
-        brikBevægelse[1][1]=Bræt.bræt[this.pos.getPos()[0]-1][this.pos.getPos()[1]-1];
-        brikBevægelse[1][2]=Bræt.bræt[this.pos.getPos()[0]][this.pos.getPos()[1]-1];
-        brikBevægelse[1][3]=Bræt.bræt[this.pos.getPos()[0]+1][this.pos.getPos()[1]-1];
-        brikBevægelse[1][4]=Bræt.bræt[this.pos.getPos()[0]+2][this.pos.getPos()[1]-1];
-
-        brikBevægelse[0][0]=Bræt.bræt[this.pos.getPos()[0]-2][this.pos.getPos()[1]-2];
-        brikBevægelse[0][1]=Bræt.bræt[this.pos.getPos()[0]-1][this.pos.getPos()[1]-2];
-        brikBevægelse[0][2]=Bræt.bræt[this.pos.getPos()[0]][this.pos.getPos()[1]-2];
-        brikBevægelse[0][3]=Bræt.bræt[this.pos.getPos()[0]+1][this.pos.getPos()[1]-2];
-        brikBevægelse[0][4]=Bræt.bræt[this.pos.getPos()[0]+2][this.pos.getPos()[1]-2];
-        */
-    }
 
 }

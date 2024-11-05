@@ -7,6 +7,11 @@ public class Main {
     public static Scanner input=new Scanner(System.in);
     public static void main(String[] args) {
 
+
+
+
+
+       /*
         Spiller rødSpiller = new Spiller(true);
         Spiller blåSpiller = new Spiller(false);
 
@@ -38,7 +43,7 @@ public class Main {
         recursiveMain();
 
 
-        /*
+
         Bræt.printBoard();
 
         rødSpiller.vælgFelt(Bræt.bræt[rødSpiller.getSpillerBrikker()[0].pos.getPos()[0]-1][rødSpiller.getSpillerBrikker()[0].pos.getPos()[1]+1]);

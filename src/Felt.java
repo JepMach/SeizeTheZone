@@ -1,14 +1,91 @@
+import java.util.Objects;
+
 public class Felt {
-    int[] pos = new int[2];
-    boolean målFelt;
-    Brik brikPåFelt;
-    Bold boldPåFelt;
+    private final int posX;
+    private final int posY;
+    private SpilObjekt feltObjekt;
 
-    public Felt(int yPos, int xPos){
-        this.pos[0]=yPos;
-        this.pos[1]=xPos;
-
+    public Felt(int xPos, int yPos){
+        this.posX=xPos;
+        this.posY=yPos;
     }
+    public boolean isTomt(){
+        return this.feltObjekt != null;
+    }
+    public SpilObjekt getFeltObjekt(){
+        return this.feltObjekt;
+    }
+    public void fjernFeltObjekt(){
+        this.feltObjekt=null;
+    }
+    public void setFeltObjekt(SpilObjekt obj){
+        this.feltObjekt=obj;
+    }
+    public int getX() {
+        return this.posX;
+    }
+    public int getY() {
+        return this.posY;
+    }
+
+    public String getPrintVærdi(){
+        String feltVærdi="    ";
+
+        if (this.isTomt()){
+            return feltVærdi;
+        }
+        if (Objects.equals(this.feltObjekt.getObjType(), "BRIK")){
+            Brik brik = (Brik) this.feltObjekt.getObj();
+            feltVærdi=" "+brik.navn+" ";
+            if (brik.isVæltet()){
+                feltVærdi="x"+brik.navn+"x";
+                return feltVærdi;
+            }
+            if (!(brik.getBold() ==null)){
+                feltVærdi=brik.navn+"<>";
+                return feltVærdi;
+            }
+        } else {
+            feltVærdi=" <> ";
+        }
+        return feltVærdi;
+    }
+
+    public int getFeltVærdi(){
+        /*
+        0 = tomt
+        1 = brik
+        2 = væltet brik
+        3 = brik med bold
+        4 = bold
+         */
+        int feltVærdi=0;
+
+        if (this.isTomt()){
+            return feltVærdi;
+        }
+        if (Objects.equals(this.feltObjekt.getObjType(), "BRIK")){
+            Brik brik = (Brik) this.feltObjekt.getObj();
+            feltVærdi=1;
+            if (brik.isVæltet()){
+                feltVærdi=2;
+                return feltVærdi;
+            }
+            if (!(brik.getBold() ==null)){
+                feltVærdi=3;
+                return feltVærdi;
+            }
+        } else {
+            feltVærdi=4;
+        }
+        return feltVærdi;
+    }
+
+
+
+
+
+
 
     public void fjernBrik(){
         this.brikPåFelt=null;
@@ -34,40 +111,11 @@ public class Felt {
         return boldPåFelt;
     }
 
-    public int[] getPos() {
-        return pos;
-    }
+
 
     public boolean isMålFelt() {
         return målFelt;
     }
 
-    public int getFeltVærdi(){
-        /*
-        -1 = mål felt
-        0 = tomt felt
-        1 = bold på felt
-        2 = brik på felt
-        3 = brik med bold på felt
-        */
-        int feltVærdi=0;
-        if (this.getFeltTomt()){
-            if (this.isMålFelt()){
-                feltVærdi+=-1;
-                return feltVærdi;
-            }
-            return feltVærdi;
-        }
-        if (!(this.getBoldPåFelt()==null)){
-            feltVærdi++;
-            return feltVærdi;
-        }
-        if (!(this.getBrikPåFelt()==null)){
-            feltVærdi+=2;
-            if (this.getBrikPåFelt().isBoldHolder()){
-                feltVærdi++;
-            }
-        }
-        return feltVærdi;
-    }
+
 }

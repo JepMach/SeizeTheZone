@@ -3,15 +3,27 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Random;
 
-public class Bold {
-    static int[] boldPos= new int[2];
-    static Brik boldBrik;
-    static Felt boldFelt;
-    static Spiller spillerMedBold;
-    static boolean holdtAfBrik=false;
+public class Bold extends SpilObjekt{
+
+    boolean kastet;
+
 
     public Bold(){
     }
+
+    @Override
+    public Bold getObj() {
+        return this;
+    }
+    @Override
+    public String getObjType() {
+        return "BOLD";
+    }
+
+
+
+
+
 
     public static void createBold(int y, int x){
         Bold bold = new Bold();

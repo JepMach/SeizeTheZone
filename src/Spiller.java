@@ -1,19 +1,74 @@
 public class Spiller {
     Brik[] spillerBrikker = new Brik[3];
     int mål;
-    boolean activePlayer;
-    boolean angriber;
     boolean harBold;
-    boolean hold;
-    //true = rød, false = blå
-    static final int totalActionPoints=1;
-    int actionPoints = totalActionPoints;
-    int downs=0;
+    int maxActionPoints;
+    int actionPoints;
+    int downs;
 
 
-    public Spiller(boolean hold){
-        this.hold=hold;
+    public Spiller(){
     }
+
+    public Brik[] getSpillerBrikker() {
+        return this.spillerBrikker;
+    }
+
+    public void testKontroller(){
+        Bræt.printBoard();
+
+        System.out.println(" ");
+        System.out.println("Tur "+Bræt.getTurer());
+        System.out.println("Aktiv spiller: "+this.getHoldNavn());
+        System.out.println("Available action points: "+this.getActionPoints());
+        System.out.println("Enter r for move, c for clear, e for end turn");
+        System.out.print("enter Y: ");
+
+
+        while (!Main.input.hasNextInt()) {
+            switch (Main.input.next().charAt(0)) {
+                case 'r':
+                    ryk();
+                    testKontroller();
+                    return;
+                case 'c':
+                    Handler.clearHandler();
+                    testKontroller();
+                    return;
+                case 'e':
+                    endTurn();
+                    return;
+                default:
+                    break;
+            }
+        }
+        int y = Main.input.nextInt();
+        System.out.print("Enter X: ");
+        while (!Main.input.hasNextInt()) Main.input.next();
+        int x = Main.input.nextInt();
+        Bræt.vælgFelt(x,y);
+    }
+
+
+    public void vælgAction(){
+
+
+    }
+    public void ryk(){
+        if (this.actionPoints-Handler.getAktivBrik().getMoveCost()<0){
+            System.out.println(" ");
+            System.out.println("Insufficient action points");
+            System.out.println(" ");
+            Handler.clearHandler();
+        } else {
+            Handler.getAktivBrik().brugBevægelse();
+            Handler.handleRyk();
+        }
+    }
+
+
+
+
 
     public void vælgBrik(int y, int x){
         Bræt.vælgBrikPåFelt(y,x);
@@ -31,28 +86,14 @@ public class Spiller {
         testKontroller();
     }
 
-    public void ryk(){
-        if (this.actionPoints-Bræt.getValgteBrik().getMoveCost()<0){
-            System.out.println(" ");
-            System.out.println("Insufficient action points");
-            System.out.println(" ");
-            Bræt.clearValg();
-            testKontroller();
-        } else {
-            Bræt.getValgteBrik().brugBevægelse();
-            Bræt.flytBrik(Bræt.getValgteBrik(), Bræt.getEndeFelt());
-            testKontroller();
-        }
-    }
+
 
 
 
 
 
     /*------------- Getters og setter ---------------*/
-    public Brik[] getSpillerBrikker() {
-        return this.spillerBrikker;
-    }
+
     public int getMål() {
         return this.mål;
     }
@@ -112,37 +153,5 @@ public class Spiller {
 
 
     /*---------------- Brik bevægelse ------------------------*/
-    public void testKontroller(){
-        Bræt.printBoard();
-        boolean Int;
 
-        System.out.println(" ");
-        System.out.println("Tur "+Bræt.getTurer());
-        System.out.println("Aktiv spiller: "+this.getHoldNavn());
-        System.out.println("Available action points: "+this.getActionPoints());
-        System.out.println("Enter r for move, c for clear, e for end turn");
-        System.out.print("enter Y: ");
-        while (!Main.input.hasNextInt()) {
-            switch (Main.input.next().charAt(0)) {
-                case 'r':
-                    ryk();
-                    return;
-                case 'c':
-                    Bræt.clearValg();
-                    testKontroller();
-                    return;
-                case 'e':
-                    endTurn();
-                    return;
-                default:
-                   break;
-            }
-        }
-        int y = Main.input.nextInt();
-        System.out.print("Enter X: ");
-        while (!Main.input.hasNextInt()) Main.input.next();
-        int x = Main.input.nextInt();
-        vælgFelt(y,x);
-
-    }
 }
