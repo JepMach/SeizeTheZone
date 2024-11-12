@@ -16,21 +16,26 @@ import static com.example.board.Grafik.BOARD_SIZE_Y;
 public class Main extends Application {
 
     public static final Grafik grafik = new Grafik();
-    private static Bræt bane = new Bræt(16,BOARD_SIZE_X,BOARD_SIZE_Y);
+    private static final Bræt bane = new Bræt(16,BOARD_SIZE_X,BOARD_SIZE_Y);
     Button move = new Button("MOVE");
     private int selectedX = -1;
     private int selectedY = -1;
     private int rykX = 0;
     private int rykY = 0;
+    private final Brik obj = new Brik("Borzoi",3,3);
+    private final Bold bold = new Bold(5,7);
 
     @Override
     public void start(Stage primaryStage) {
 
-        grafik.getPiecePositions()[3][3] = true;
+        obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\BasicPiece.png");
+        grafik.getPiecePositions()[obj.getObjPos().getX()][obj.getObjPos().getY()] = true;
+
+        bold.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\Bold.png");
+        grafik.getPiecePositions()[bold.getObjPos().getX()][bold.getObjPos().getY()] = true;
+
 
         grafik.printBoard();
-
-
         grafik.getPane().setOnMouseClicked(event -> handleMouseClick(event, grafik.getgC()));
         move.setOnAction(e -> handleRyk(grafik.getgC()));
 
@@ -45,7 +50,7 @@ public class Main extends Application {
         int Y = (int) (event.getY() / CELL_SIZE);
         if (selectedX == -1 && selectedY == -1) {
             if (grafik.getPiecePositions()[X][Y]) {
-                grafik.setImage(grafik.getHighlightedPiece());
+                obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\HighlightedPiece.png");
                 selectedX = X;
                 selectedY = Y;
                 rykX = X;
@@ -53,7 +58,7 @@ public class Main extends Application {
 
             }
         } else {
-            if(Bræt.getGrænseFelter(bane.getBræt()[rykX][rykY]).contains(bane.getBræt()[X][Y])) {
+            if(Bræt.getGrænseFelter(Bræt.getBræt()[rykX][rykY]).contains(Bræt.getBræt()[X][Y])) {
                 grafik.getHighTile()[X][Y] = true;
                 rykX = X;
                 rykY = Y;
@@ -63,14 +68,14 @@ public class Main extends Application {
             }
 
 
-
         }
         grafik.printBoard();
     }
     private void handleRyk(GraphicsContext gc){
         grafik.getPiecePositions()[selectedX][selectedY] = false;
+        obj.flyt(Bræt.getBræt()[rykX][rykY]);
         grafik.getPiecePositions()[rykX][rykY] = true;
-        grafik.setImage(grafik.getBasicPieceImage());
+        obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\BasicPiece.png");
         grafik.getPane().getChildren().remove(move);
 
         for (int i = 0; i < grafik.getHighTile().length; ++i) {

@@ -10,12 +10,14 @@ public class Brik extends SpilObjekt{
     //private Spiller ejer;
     private boolean brugtBevægelse;
     private boolean brugtAction;
-    private final ArrayList<Felt> bevægelse;
+    private Bold harBold;
+
+    //private final ArrayList<Felt> bevægelse;
 
 
-    public Brik(String navn, ArrayList<Felt> bevægelse){
+    public Brik(String navn, int x, int y){
         this.navn=navn;
-        this.bevægelse = bevægelse;
+        this.set(Bræt.getBræt()[x][y]);
     }
     @Override
     public Brik getObj() {
@@ -25,11 +27,22 @@ public class Brik extends SpilObjekt{
     public String getObjType() {
         return "BRIK";
     }
+
+
+
+    public Bold getBold(){
+        return this.harBold;
+    }
+    public void pickUpBold(Bold bold){
+        this.harBold=bold;
+        bold.fjern();
+    }
+
+    /*
     public ArrayList<Felt> getBevægelse(){
         return this.bevægelse;
     }
 
-    /*
     public ArrayList<Felt> createBevægelse(){
         Felt[][] brikBevægelse = new Felt[5][5];
         ArrayList<Felt> bevægelsesListe = new ArrayList<>();
@@ -53,13 +66,6 @@ public class Brik extends SpilObjekt{
     }
     public boolean isVæltet(){
         return this.væltet;
-    }
-    public Bold getBold(){
-        return this.harBold;
-    }
-    public void pickUpBold(Bold bold){
-        this.harBold=bold;
-        bold.fjern();
     }
     public void brugAction() {
         this.brugtAction=true;

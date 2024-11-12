@@ -1,9 +1,21 @@
 package com.example.board;
 
+import javafx.scene.image.Image;
+
+import static com.example.board.Grafik.CELL_SIZE;
+
 public abstract class SpilObjekt {
     private Felt objPos;
+    private Image objSprite;
 
     public SpilObjekt(){
+    }
+
+    public Image getObjSprite() {
+        return objSprite;
+    }
+    public void setObjSprite(String path) {
+        this.objSprite = new Image(path, CELL_SIZE, CELL_SIZE, true, true);
     }
 
     public void fjern(){

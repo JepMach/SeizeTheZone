@@ -1,16 +1,30 @@
 package com.example.board;
 
+import javafx.scene.image.Image;
+
 import java.util.Objects;
+
+import static com.example.board.Grafik.CELL_SIZE;
 
 public class Felt {
     private final int posX;
     private final int posY;
     private SpilObjekt feltObjekt;
+    private Image feltSprite;
 
     public Felt(int xPos, int yPos){
         this.posX=xPos;
         this.posY=yPos;
     }
+
+    public Image getFeltSprite() {
+        return feltSprite;
+    }
+
+    public void setFeltSprite(String path) {
+        this.feltSprite = new Image(path, CELL_SIZE, CELL_SIZE, true, true);
+    }
+
     public boolean isTomt(){
         return this.feltObjekt != null;
     }

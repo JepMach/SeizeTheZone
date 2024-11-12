@@ -28,14 +28,21 @@ public class Bræt {
 
                 if (x == 0 || x == brætX - 1) {
                     målFelter[målLinje] = felt;
+                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\MålFelt.png");
                     målLinje++;
+                } else if ((x + y) % 2 == 0) {
+                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\GrøntFelt.png");
+                } else {
+                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\MørkeGrøntFelt.png");
                 }
+
+
             }
 
         }
     }
 
-    public Felt[][] getBræt() {
+    public static Felt[][] getBræt() {
         return bræt;
     }
 
