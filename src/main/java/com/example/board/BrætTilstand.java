@@ -3,48 +3,64 @@ package com.example.board;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Bræt {
-    private static Felt[][] bræt;
-    private static Felt[] målFelter;
-    private static Felt[] kampLinje;
-    private static int maxTurer;
-    private static int tur;
+public class BrætTilstand {
+    //Spiller variabler
+    ArrayList<ArrayList<Brikker>> spillerBrikker = new ArrayList<>();
+    int[] spillerMål = new int[]{0,0};
+    int [] actionPoints;
 
-    //private static Spiller aktivSpiller;
-    //private static Spiller angriber;
+    //Bræt variabler
+    Brikker[][] bræt;
+    int [][][] brætKoordinater;
+    int tur;
 
+    public BrætTilstand(ArrayList<ArrayList<Brikker>> brikker, int brætX, int brætY, int actionPoints1, int actionsPoint2) {
 
-    public Bræt(int turer, int brætX, int brætY) {
-        maxTurer = turer;
-        bræt = new Felt[brætX][brætY];
-        målFelter = new Felt[brætY * 2];
+       spillerBrikker.add(new ArrayList<>(brikker.get(0)));
+       spillerBrikker.add(new ArrayList<>(brikker.get(1)));
 
-        int målLinje = 0;
-        for (int x = 0; x < brætX; x++) {
-            for (int y = 0; y < brætY; y++) {
+       brætKoordinater=new int[brætX][brætY][2];
+       bræt=new Brikker[brætX][brætY];
 
-                Felt felt = new Felt(x, y);
-                bræt[x][y] = felt;
+       actionPoints=new int[]{actionPoints1,actionsPoint2};
+       tur=1;
 
-                if (x == 0 || x == brætX - 1) {
-                    målFelter[målLinje] = felt;
-                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\MålFelt.png");
-                    målLinje++;
-                } else if ((x + y) % 2 == 0) {
-                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\GrøntFelt.png");
+       int brikNr=0; //indeksnummer i en given spillers arrayliste af brikker
+       int spillerNr = 0; // Når spillerNr=0 vælges første arrayliste med spillerbrikker
+
+       for (int i=0;i<brætY;i++){
+           for (int j=0;j<brætX;j++){
+               brætKoordinater[j][i]= new int[]{j,i};
+               bræt[j][i]=null;
+               try{
+                    if (j==3 && i==3+brikNr) {
+                   bræt[j][i] = spillerBrikker.get(spillerNr).get(brikNr);
+                   spillerNr++;
+                    }
+                   if (j==brætX-3 && i==3+brikNr){
+                       bræt[j][i] = spillerBrikker.get(spillerNr).get(brikNr);
+                       spillerNr--;
+                       brikNr++;
+                   }
+
+               }catch(Exception ignored){}
+           }
+       }
+    }
+
+    public void printTest(){
+        for (int i=0; i<bræt[1].length;i++){
+            for (int j=0; j<bræt.length;j++){
+                if (bræt[j][i]==null){
+                    System.out.print(Arrays.toString(brætKoordinater[j][i]));
                 } else {
-                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\MørkeGrøntFelt.png");
+                    System.out.print("[ "+bræt[j][i].navn+" ]");
                 }
-
-
             }
-
+            System.out.println(" ");
         }
     }
-
-    public static Felt[][] getBræt() {
-        return bræt;
-    }
+}
 
     /*
     public static void flytSpilObj(SpilObjekt obj, Felt felt) {
@@ -67,8 +83,6 @@ public class Bræt {
             Handler.addToQueue(felt);
         }
     }
-     */
-
 
     public static ArrayList<Felt> getGrænseFelter(Felt orgFelt) {
         ArrayList<Felt> grænseListe = new ArrayList<>();
@@ -101,9 +115,6 @@ public class Bræt {
         }
         return tommeFelter;
     }
-
-
-    /*
     public static void flytBrik(Brik brik, Felt felt) {
         if (brik.getBrikPos() == felt.getPos()) {
             System.out.println(" ");
@@ -151,4 +162,4 @@ public class Bræt {
         clearValg();
     }
      */
-}
+

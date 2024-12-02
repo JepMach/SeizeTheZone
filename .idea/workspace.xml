@@ -4,16 +4,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a" />
+    <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/QuarterBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Bold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Bold.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Brik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Brikker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Bræt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/BasicPiece.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/Bold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/Brik.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/BruntFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/GrøntFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HighlightedPiece.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HighlightedTile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HvidtFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/MålFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/MørkeGrøntFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Bold.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Brik.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Bræt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="Ver-0.2(Nyeste)" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -31,14 +67,24 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Ver-0.2(Nyeste)",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Ver-1.1(Bræt-tilstands-klasse)",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/jeppe/Desktop/RUC/SeizeTheZone",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jeppe\Desktop\RUC\SeizeTheZone" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -50,6 +96,9 @@
       <workItem from="1731408624009" duration="18000" />
       <workItem from="1731408661717" duration="197000" />
       <workItem from="1731408868462" duration="234000" />
+      <workItem from="1731418308521" duration="623000" />
+      <workItem from="1731493873541" duration="90000" />
+      <workItem from="1733131622467" duration="19448000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <option name="closed" value="true" />
@@ -75,7 +124,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731409076475</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="a">
+      <option name="closed" value="true" />
+      <created>1731418446818</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731418446818</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
