@@ -1,6 +1,7 @@
 package com.example.board;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main {
     static ArrayList<Brikker> spillerBrikker1 = new ArrayList<>();
@@ -18,6 +19,9 @@ public class Main {
 
         BrætTilstand testBræt=new BrætTilstand(brætBrikker,18,8,7,7);
         testBræt.printTest();
+
+
+
 
     }
 }
