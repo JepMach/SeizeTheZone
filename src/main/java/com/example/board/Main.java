@@ -20,6 +20,12 @@ public class Main {
         BrætTilstand testBræt=new BrætTilstand(brætBrikker,18,8,7,7);
         testBræt.printTest();
 
+        int t=0;
+        do {
+            System.out.println(t);
+            t++;
+        } while (t<10);
+
 
 
 

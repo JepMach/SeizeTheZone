@@ -19,6 +19,8 @@ public class Brikker implements Actions {
         this.navn=navn;
     }
     public ArrayList<int[]> bevægelsesMuligheder() {
+        ArrayList<int[]> bevægelse = new ArrayList<>();
+        return bevægelse;
     }
 }
 

@@ -8,14 +8,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Brikker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Brikker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Felt.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/QuarterBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/QuarterBack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/SpilObjekt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Actions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Actions.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Brikker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Brikker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Felt.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/SpilObjekt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/QuarterBack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/QuarterBack.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +94,7 @@
       <workItem from="1731408868462" duration="234000" />
       <workItem from="1731418308521" duration="623000" />
       <workItem from="1731493873541" duration="90000" />
-      <workItem from="1733131622467" duration="24624000" />
+      <workItem from="1733131622467" duration="26436000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <option name="closed" value="true" />
@@ -146,7 +144,23 @@
       <option name="project" value="LOCAL" />
       <updated>1733156525718</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="a">
+      <option name="closed" value="true" />
+      <created>1733226572219</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733226572219</updated>
+    </task>
+    <task id="LOCAL-00008" summary="a">
+      <option name="closed" value="true" />
+      <created>1733226580460</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733226580460</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

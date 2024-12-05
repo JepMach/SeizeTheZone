@@ -13,6 +13,7 @@ public class QuarterBack extends Brikker {
 
     @Override
     public ArrayList<int[]> bevægelsesMuligheder() {
-
+        ArrayList<int[]> bevægelse = new ArrayList<>();
+        return bevægelse;
     }
 }

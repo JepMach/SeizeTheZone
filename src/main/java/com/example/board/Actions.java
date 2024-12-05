@@ -13,6 +13,7 @@ public interface Actions {
             if (bræt.bræt[bevægelsesFelt[0]][bevægelsesFelt[1]]==null)continue;
             bevægelse.remove(bevægelsesFelt);
         }
+        return bevægelse;
     }
     default void takling(int[] startFelt, int[] slutFelt, int[]retning, Brikker aktivBrik, Brikker reaktivBrik, BrætTilstand bræt){
 

@@ -14,6 +14,8 @@ public class BrætTilstand {
     int [][][] brætKoordinater;
     int tur;
 
+    //Input variabler
+
     public BrætTilstand(ArrayList<ArrayList<Brikker>> brikker, int brætX, int brætY, int actionPoints1, int actionsPoint2) {
 
        spillerBrikker.add(new ArrayList<>(brikker.get(0)));
@@ -61,6 +63,7 @@ public class BrætTilstand {
         }
     }
 }
+
 
     /*
     public static void flytSpilObj(SpilObjekt obj, Felt felt) {
