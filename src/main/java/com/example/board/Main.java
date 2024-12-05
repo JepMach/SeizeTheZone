@@ -3,93 +3,70 @@ package com.example.board;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
 
-import static com.example.board.Grafik.CELL_SIZE;
-import static com.example.board.Grafik.BOARD_SIZE_X;
-import static com.example.board.Grafik.BOARD_SIZE_Y;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main extends Application {
-
-    public static final Grafik grafik = new Grafik();
-    private static final Bræt bane = new Bræt(16,BOARD_SIZE_X,BOARD_SIZE_Y);
-    Button move = new Button("MOVE");
-    private int selectedX = -1;
-    private int selectedY = -1;
-    private int rykX = 0;
-    private int rykY = 0;
-    private final Brik obj = new Brik("Borzoi",3,3);
-    private final Bold bold = new Bold(5,7);
+    static ArrayList<Brikker> spillerBrikker1 = new ArrayList<>();
+    static ArrayList<Brikker> spillerBrikker2 = new ArrayList<>(){};
+    static ArrayList<ArrayList<Brikker>> brætBrikker = new ArrayList<>(){};
+    private int ValgtX = -1;
+    private int ValgtY = -1;
 
     @Override
     public void start(Stage primaryStage) {
 
-        obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\BasicPiece.png");
-        grafik.getPiecePositions()[obj.getObjPos().getX()][obj.getObjPos().getY()] = true;
+        spillerBrikker1.add(new Brikker("QuarterBack"));
+        spillerBrikker1.add(new Brikker("LineMan"));
+        spillerBrikker2.add(new Brikker("QuarterBack"));
+        spillerBrikker2.add(new Brikker("LineMan"));
 
-        bold.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\Bold.png");
-        grafik.getPiecePositions()[bold.getObjPos().getX()][bold.getObjPos().getY()] = true;
+        brætBrikker.add(spillerBrikker1);
+        brætBrikker.add(spillerBrikker2);
 
 
-        grafik.printBoard();
-        grafik.getPane().setOnMouseClicked(event -> handleMouseClick(event, grafik.getgC()));
-        move.setOnAction(e -> handleRyk(grafik.getgC()));
 
-        Scene scene = new Scene(grafik.getPane(), BOARD_SIZE_X * CELL_SIZE, BOARD_SIZE_Y * CELL_SIZE);
-        primaryStage.setTitle("Board test");
+        BrætTilstand testBræt = new BrætTilstand(brætBrikker,18,8,7,7);
+        Grafik grafik = new Grafik(testBræt, 60);
+        testBræt.addPropertyChangeListener(grafik);
+        grafik.sætGrafik(testBræt);
+        grafik.vindue.setOnMouseClicked(event -> handleMouseClick(event, testBræt));
+
+
+
+        Scene scene = new Scene(grafik.vindue, 18 * 60, 8 * 60);
+        primaryStage.setTitle("Seize The Zone");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        System.out.println(spillerBrikker1.getFirst().navn);
     }
 
-    private void handleMouseClick(MouseEvent event, GraphicsContext gc) {
-        int X = (int) (event.getX() / CELL_SIZE);
-        int Y = (int) (event.getY() / CELL_SIZE);
-        if (selectedX == -1 && selectedY == -1) {
-            if (grafik.getPiecePositions()[X][Y]) {
-                obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\HighlightedPiece.png");
-                selectedX = X;
-                selectedY = Y;
-                rykX = X;
-                rykY = Y;
+    public void handleMouseClick(MouseEvent event, BrætTilstand testBræt) {
+        int X = (int) (event.getX() / 60);
+        int Y = (int) (event.getY() / 60);
 
+
+        if (ValgtX == -1 && ValgtY == -1) {
+            if (!(testBræt.bræt[X][Y] ==null)) {
+                ValgtX = X;
+                ValgtY = Y;
+                testBræt.opdaterValgteFelter(testBræt.brætKoordinater[X][Y]);
             }
-        } else {
-            if(Bræt.getGrænseFelter(Bræt.getBræt()[rykX][rykY]).contains(Bræt.getBræt()[X][Y])) {
-                grafik.getHighTile()[X][Y] = true;
-                rykX = X;
-                rykY = Y;
-                if (!grafik.getPane().getChildren().contains(move)){
-                    grafik.getPane().getChildren().add(move);
-                }
+        }
+        else {
+            if(!(testBræt.bræt[X][Y] ==testBræt.bræt[testBræt.valgteFelter.getFirst()[0]][testBræt.valgteFelter.getFirst()[1]])){
+                testBræt.opdaterBrætTest(new int[]{ValgtX,ValgtY},new int[]{X,Y});
             }
 
-
         }
-        grafik.printBoard();
     }
-    private void handleRyk(GraphicsContext gc){
-        grafik.getPiecePositions()[selectedX][selectedY] = false;
-        obj.flyt(Bræt.getBræt()[rykX][rykY]);
-        grafik.getPiecePositions()[rykX][rykY] = true;
-        obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\BasicPiece.png");
-        grafik.getPane().getChildren().remove(move);
-
-        for (int i = 0; i < grafik.getHighTile().length; ++i) {
-            Arrays.fill(grafik.getHighTile()[i], false);
-        }
-
-        selectedX = -1;
-        selectedY = -1;
-        rykX = 0;
-        rykY = 0;
-
-        grafik.printBoard();
-    }
-
 
     public static void main(String[] args) {
         launch(args);

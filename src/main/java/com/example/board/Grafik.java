@@ -1,78 +1,168 @@
 package com.example.board;
-
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Grafik {
-    public static final int BOARD_SIZE_X = 18;
-    public static final int BOARD_SIZE_Y = 8;
-    public static final int CELL_SIZE = 60;
-    private final boolean[][] piecePositions = new boolean[BOARD_SIZE_X][BOARD_SIZE_Y];
-    private final boolean[][] highTile = new boolean[BOARD_SIZE_X][BOARD_SIZE_Y];
-    private final Image highlightedTile = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\HighlightedTile.png", CELL_SIZE,CELL_SIZE, true, true);
-    private final Canvas canvas = new Canvas(BOARD_SIZE_X * CELL_SIZE, BOARD_SIZE_Y * CELL_SIZE);
-    private final GraphicsContext gC = canvas.getGraphicsContext2D();
-    private final Pane pane = new Pane(canvas);
-    private ComboBox<String> actionBox;
-    ArrayList<String> actions = new ArrayList<>();
+public class Grafik implements PropertyChangeListener{
 
-    public Grafik(){
-    }
-    public boolean[][] getPiecePositions() {
-        return piecePositions;
-    }
-    public boolean[][] getHighTile(){
-        return highTile;
-    }
-    public Canvas getCanvas() {
-        return canvas;
+    Canvas canvas;
+    GraphicsContext gC;
+    Pane vindue;
+    int feltStørrelse;
+
+    public Grafik(BrætTilstand bræt, int feltStørrelse){
+        int[] brætStørrelse = new int[]{bræt.bræt.length,bræt.bræt[0].length};
+        this.feltStørrelse=feltStørrelse;
+        canvas = new Canvas(brætStørrelse[0] * feltStørrelse, brætStørrelse[1] * feltStørrelse);
+        gC = canvas.getGraphicsContext2D();
+        vindue = new Pane(canvas);
     }
 
-    public GraphicsContext getgC() {
-        return gC;
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        sætGrafik((BrætTilstand) evt.getNewValue());
     }
 
-    public Pane getPane() {
-        return pane;
-    }
-    public ComboBox<String> getActionBox(){
-        return actionBox;
-    }
+    void sætGrafik(BrætTilstand brætTilstand){
+        Brikker[][] brikPositioner = brætTilstand.bræt;
+        ArrayList<ArrayList<Brikker>> spillerBrikker = brætTilstand.spillerBrikker;
+        ArrayList<int[]> valgteFelter = brætTilstand.valgteFelter;
+        int [][][] brætKoordinater = brætTilstand.brætKoordinater;
 
-    public void printBoard() {
-        for (int y = 0; y < BOARD_SIZE_Y; y++) {
-            for (int x = 0; x < BOARD_SIZE_X; x++) {
-                if (getHighTile()[x][y]) {
-                  gC.drawImage(highlightedTile,x * CELL_SIZE, y * CELL_SIZE);
+        for (int i=0; i<brikPositioner[1].length;i++){
+            for (int j=0; j<brikPositioner.length;j++){
+
+                String feltBillede;
+                if (j==0 || j==brikPositioner.length-1){
+                    feltBillede = "MålFelt";
+                }
+                else if ((j+i)%2==0){
+                    feltBillede = "Grøn";
+                }
+                else {
+                    feltBillede = "MørkeGrøn";
+                }
+
+                String valg=null;
+                try {
+                    if (valgteFelter.contains(brætKoordinater[j][i])) {
+                        if (brætKoordinater[j][i] == valgteFelter.getFirst()) {
+                            valg = "Brik";
+                        } else {
+                            valg = "Felt";
+                        }
+                    }
+                }catch (Exception ignored){}
+                finally {
+                    if (valg==null) {
+                        valg = "N/A";
+                    }
+                }
+
+                if (brikPositioner[j][i]==null){
+                    lavBillede(feltBillede,valg,"N/A","N/A","N/A",j*feltStørrelse,i*feltStørrelse);
+                    continue;
+                }
+
+                String brikBillede;
+                if (Objects.equals(brikPositioner[j][i].navn, "Bold")) {
+                    brikBillede = "Bold";
+                    lavBillede(feltBillede,valg,brikBillede,"N/A","N/A",j*feltStørrelse,i*feltStørrelse);
+                    continue;
                 } else {
-                    gC.drawImage(Bræt.getBræt()[x][y].getFeltSprite(), x * CELL_SIZE, y * CELL_SIZE);
+                    brikBillede = brikPositioner[j][i].navn;
                 }
-                if (piecePositions[x][y]) {
-                    gC.drawImage(Bræt.getBræt()[x][y].getFeltObjekt().getObjSprite(), x * CELL_SIZE, y * CELL_SIZE);
+
+                String holdFarve;
+                if (spillerBrikker.getLast().contains(brikPositioner[j][i])){
+                    holdFarve = "Blå";
                 }
+                else {
+                    holdFarve = "Rød";
+                }
+
+                String brikStatus;
+                if (brikPositioner[j][i].væltet){
+                    brikStatus = "Væltet";
+                }
+                else if (brikPositioner[j][i].harBold){
+                    brikStatus = "HarBold";
+                } else {
+                    brikStatus = "N/A";
+                }
+                lavBillede(feltBillede,valg,brikBillede,holdFarve,brikStatus,j*feltStørrelse,i*feltStørrelse);
+                System.out.println(feltBillede+", "+valg+", "+brikBillede+", "+holdFarve+", "+brikStatus);
             }
         }
+
     }
 
-    public ArrayList<String> getActions(){
-        actions.add("Act1");
-        actions.add("Act2");
-        actions.add("Act3");
-        return actions;
-    }
-    public void createActionBox(int x, int y, ArrayList<String> actions){
-        actionBox.getItems().addAll(actions);
-        actionBox.setLayoutX(x);
-        actionBox.setLayoutY(y);
-        pane.getChildren().add(actionBox);
-    }
-    public void removeActionBox(){
-        pane.getChildren().remove(actionBox);
+
+    void lavBillede(String feltType, String inputStatus, String brikNavn, String holdFarve, String brikStatus, int x, int y){
+
+        Image image = switch (feltType) {
+            case "MålFelt" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\MålFelt.png");
+            case "Grøn" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\GrøntFelt.png");
+            case "MørkeGrøn" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\MørkeGrøntFelt.png");
+            default -> null;
+        };
+        gC.drawImage(image,x,y, 60, 60);
+
+        switch (inputStatus) {
+            case "Felt":
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\HighlightedTile.png");
+                gC.drawImage(image,x,y, 60, 60);
+                break;
+            case "Brik":
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\ValgtSpiller.png");
+                gC.drawImage(image,x,y, 60, 60);
+                break;
+            default:
+                break;
+        };
+
+        switch (brikNavn) {
+            case "Bold":
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\Bold.png");
+
+                gC.drawImage(image,x,y, 60, 60);
+                return;
+            case "QuarterBack":
+                System.out.println(holdFarve);
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\"+holdFarve+"QB.png");
+                break;
+            case "LineMan":
+                System.out.println(holdFarve);
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\"+holdFarve+"LM.png");
+                break;
+            default:
+                return;
+        }
+        if (Objects.equals(holdFarve, "Blå")){
+            System.out.println(holdFarve);
+            gC.drawImage(image,x,y, 60, 60);
+        } else {
+            System.out.println(holdFarve);
+            gC.drawImage(image,x+60,y, -60, 60);
+        }
+
+        switch (brikStatus) {
+            case "Væltet":
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\Væltet.png");
+                break;
+            case "HarBold":
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\SpillerBold.png");
+                break;
+            default:
+                return;
+        }
+        gC.drawImage(image,x,y, 60, 60);
+
     }
 }

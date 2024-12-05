@@ -4,11 +4,67 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a" />
+    <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/BlåLM.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/BlåQB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/BlåRB.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/BlåWR.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/Bold.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/RødLM.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/RødQB.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/RødRB.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/RødWR.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/SpillerBold.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/ValgtSpiller.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/STZBilleder/Væltet.PNG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Brikker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/QuarterBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/BasicPiece.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/Bold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/Brik.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/BruntFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/GrøntFelt.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/GrøntFelt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/HighlightedPiece.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/HighlightedTile.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/HighlightedTile.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/HvidtFelt.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/HvidtFelt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/MålFelt.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/MålFelt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sprites/MørkeGrøntFelt.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/MørkeGrøntFelt.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interface/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Bold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Bold.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Brik.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Bræt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Felt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Handler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/HelloApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/SpilObjekt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Bold.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Bold.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/HelloApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/HelloController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -22,23 +78,52 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2okLS0wMdOuP5GdFqr9oDzJa09b" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "Ver-0.2(Nyeste)",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/jeppe/Desktop/RUC/SeizeTheZone",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jeppe\Desktop\RUC\SeizeTheZone" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="bræt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="bræt" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -82,6 +167,7 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="a" />
     <option name="LAST_COMMIT_MESSAGE" value="a" />
   </component>

@@ -1,0 +1,1947 @@
+Index: src/main/java/com/example/board/Bold.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.board;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Collection;\r\nimport java.util.Collections;\r\nimport java.util.Random;\r\n\r\npublic class Bold extends SpilObjekt{\r\n\r\n    boolean kastet;\r\n\r\n\r\n    public Bold(int y, int x){\r\n        this.set(Bræt.getBræt()[y][x]);\r\n    }\r\n\r\n    @Override\r\n    public Bold getObj() {\r\n        return this;\r\n    }\r\n    @Override\r\n    public String getObjType() {\r\n        return \"BOLD\";\r\n    }\r\n\r\n    /*\r\n\r\n\r\n    public static void turnOver(Spiller spiller1, Spiller spiller2){\r\n        spiller2.tabBold();\r\n        spillerMedBold=spiller1;\r\n        spiller1.givBold();\r\n    }\r\n\r\n    public void setBoldPos(int y, int x){\r\n        boldPos[0]=y;\r\n        boldPos[1]=x;\r\n    }\r\n    public void setBoldFelt(Felt felt){\r\n        boldFelt=felt;\r\n        this.setBoldPos(felt.getPos()[0],felt.getPos()[1]);\r\n        felt.setBoldPåFelt(this);\r\n    }\r\n    public void setBoldBrik(Brik brik){\r\n        boldBrik=brik;\r\n        this.setBoldPos(brik.getBrikPos()[0],brik.getBrikPos()[1]);\r\n    }\r\n    public static void clearBold(){\r\n        boldBrik=null;\r\n        boldFelt=null;\r\n        spillerMedBold=null;\r\n        holdtAfBrik=false;\r\n        boldPos=null;\r\n    }\r\n    public void dropped(Felt felt){\r\n        clearBold();\r\n        ArrayList<Felt> landeFelter = new ArrayList<>(Bræt.getGrænseFelter(felt));\r\n        Collections.shuffle(landeFelter);\r\n        boldFelt=landeFelter.getFirst();\r\n        boldFelt.setBoldPåFelt(this);\r\n    }\r\n     */\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/board/Bold.java b/src/main/java/com/example/board/Bold.java
+--- a/src/main/java/com/example/board/Bold.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ b/src/main/java/com/example/board/Bold.java	(date 1733397589192)
+@@ -1,64 +1,8 @@
+ package com.example.board;
+ 
+-import java.util.ArrayList;
+-import java.util.Collection;
+-import java.util.Collections;
+-import java.util.Random;
+-
+-public class Bold extends SpilObjekt{
++public class Bold extends Brikker{
+ 
+-    boolean kastet;
++    public Bold(){
+ 
+-
+-    public Bold(int y, int x){
+-        this.set(Bræt.getBræt()[y][x]);
+     }
+-
+-    @Override
+-    public Bold getObj() {
+-        return this;
+-    }
+-    @Override
+-    public String getObjType() {
+-        return "BOLD";
+-    }
+-
+-    /*
+-
+-
+-    public static void turnOver(Spiller spiller1, Spiller spiller2){
+-        spiller2.tabBold();
+-        spillerMedBold=spiller1;
+-        spiller1.givBold();
+-    }
+-
+-    public void setBoldPos(int y, int x){
+-        boldPos[0]=y;
+-        boldPos[1]=x;
+-    }
+-    public void setBoldFelt(Felt felt){
+-        boldFelt=felt;
+-        this.setBoldPos(felt.getPos()[0],felt.getPos()[1]);
+-        felt.setBoldPåFelt(this);
+-    }
+-    public void setBoldBrik(Brik brik){
+-        boldBrik=brik;
+-        this.setBoldPos(brik.getBrikPos()[0],brik.getBrikPos()[1]);
+-    }
+-    public static void clearBold(){
+-        boldBrik=null;
+-        boldFelt=null;
+-        spillerMedBold=null;
+-        holdtAfBrik=false;
+-        boldPos=null;
+-    }
+-    public void dropped(Felt felt){
+-        clearBold();
+-        ArrayList<Felt> landeFelter = new ArrayList<>(Bræt.getGrænseFelter(felt));
+-        Collections.shuffle(landeFelter);
+-        boldFelt=landeFelter.getFirst();
+-        boldFelt.setBoldPåFelt(this);
+-    }
+-     */
+-}
+-
++}
+\ No newline at end of file
+Index: src/main/java/com/example/board/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.board;\r\n\r\nimport javafx.application.Application;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.canvas.GraphicsContext;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.input.MouseEvent;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.util.Arrays;\r\n\r\nimport static com.example.board.Grafik.CELL_SIZE;\r\nimport static com.example.board.Grafik.BOARD_SIZE_X;\r\nimport static com.example.board.Grafik.BOARD_SIZE_Y;\r\n\r\npublic class Main extends Application {\r\n\r\n    public static final Grafik grafik = new Grafik();\r\n    private static final Bræt bane = new Bræt(16,BOARD_SIZE_X,BOARD_SIZE_Y);\r\n    Button move = new Button(\"MOVE\");\r\n    private int selectedX = -1;\r\n    private int selectedY = -1;\r\n    private int rykX = 0;\r\n    private int rykY = 0;\r\n    private final Brik obj = new Brik(\"Borzoi\",3,3);\r\n    private final Bold bold = new Bold(5,7);\r\n\r\n    @Override\r\n    public void start(Stage primaryStage) {\r\n\r\n        obj.setObjSprite(\"C:\\\\Users\\\\jeppe\\\\Desktop\\\\RUC\\\\Datalogi\\\\5.-Semester---Projekt-main\\\\5.-Semester---Projekt-main\\\\board1\\\\src\\\\main\\\\resources\\\\Sprites\\\\BasicPiece.png\");\r\n        grafik.getPiecePositions()[obj.getObjPos().getX()][obj.getObjPos().getY()] = true;\r\n\r\n        bold.setObjSprite(\"C:\\\\Users\\\\jeppe\\\\Desktop\\\\RUC\\\\Datalogi\\\\5.-Semester---Projekt-main\\\\5.-Semester---Projekt-main\\\\board1\\\\src\\\\main\\\\resources\\\\Sprites\\\\Bold.png\");\r\n        grafik.getPiecePositions()[bold.getObjPos().getX()][bold.getObjPos().getY()] = true;\r\n\r\n\r\n        grafik.printBoard();\r\n        grafik.getPane().setOnMouseClicked(event -> handleMouseClick(event, grafik.getgC()));\r\n        move.setOnAction(e -> handleRyk(grafik.getgC()));\r\n\r\n        Scene scene = new Scene(grafik.getPane(), BOARD_SIZE_X * CELL_SIZE, BOARD_SIZE_Y * CELL_SIZE);\r\n        primaryStage.setTitle(\"Board test\");\r\n        primaryStage.setScene(scene);\r\n        primaryStage.show();\r\n    }\r\n\r\n    private void handleMouseClick(MouseEvent event, GraphicsContext gc) {\r\n        int X = (int) (event.getX() / CELL_SIZE);\r\n        int Y = (int) (event.getY() / CELL_SIZE);\r\n        if (selectedX == -1 && selectedY == -1) {\r\n            if (grafik.getPiecePositions()[X][Y]) {\r\n                obj.setObjSprite(\"C:\\\\Users\\\\jeppe\\\\Desktop\\\\RUC\\\\Datalogi\\\\5.-Semester---Projekt-main\\\\5.-Semester---Projekt-main\\\\board1\\\\src\\\\main\\\\resources\\\\Sprites\\\\HighlightedPiece.png\");\r\n                selectedX = X;\r\n                selectedY = Y;\r\n                rykX = X;\r\n                rykY = Y;\r\n\r\n            }\r\n        } else {\r\n            if(Bræt.getGrænseFelter(Bræt.getBræt()[rykX][rykY]).contains(Bræt.getBræt()[X][Y])) {\r\n                grafik.getHighTile()[X][Y] = true;\r\n                rykX = X;\r\n                rykY = Y;\r\n                if (!grafik.getPane().getChildren().contains(move)){\r\n                    grafik.getPane().getChildren().add(move);\r\n                }\r\n            }\r\n\r\n\r\n        }\r\n        grafik.printBoard();\r\n    }\r\n    private void handleRyk(GraphicsContext gc){\r\n        grafik.getPiecePositions()[selectedX][selectedY] = false;\r\n        obj.flyt(Bræt.getBræt()[rykX][rykY]);\r\n        grafik.getPiecePositions()[rykX][rykY] = true;\r\n        obj.setObjSprite(\"C:\\\\Users\\\\jeppe\\\\Desktop\\\\RUC\\\\Datalogi\\\\5.-Semester---Projekt-main\\\\5.-Semester---Projekt-main\\\\board1\\\\src\\\\main\\\\resources\\\\Sprites\\\\BasicPiece.png\");\r\n        grafik.getPane().getChildren().remove(move);\r\n\r\n        for (int i = 0; i < grafik.getHighTile().length; ++i) {\r\n            Arrays.fill(grafik.getHighTile()[i], false);\r\n        }\r\n\r\n        selectedX = -1;\r\n        selectedY = -1;\r\n        rykX = 0;\r\n        rykY = 0;\r\n\r\n        grafik.printBoard();\r\n    }\r\n\r\n\r\n    public static void main(String[] args) {\r\n        launch(args);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/board/Main.java b/src/main/java/com/example/board/Main.java
+--- a/src/main/java/com/example/board/Main.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ b/src/main/java/com/example/board/Main.java	(date 1733420580334)
+@@ -3,93 +3,70 @@
+ import javafx.application.Application;
+ import javafx.scene.Scene;
+ import javafx.scene.canvas.GraphicsContext;
+-import javafx.scene.control.Button;
++import javafx.scene.control.ComboBox;
+ import javafx.scene.input.MouseEvent;
+ import javafx.stage.Stage;
+ 
++
++import java.util.ArrayList;
+ import java.util.Arrays;
+-
+-import static com.example.board.Grafik.CELL_SIZE;
+-import static com.example.board.Grafik.BOARD_SIZE_X;
+-import static com.example.board.Grafik.BOARD_SIZE_Y;
++import java.util.List;
+ 
+ public class Main extends Application {
+-
+-    public static final Grafik grafik = new Grafik();
+-    private static final Bræt bane = new Bræt(16,BOARD_SIZE_X,BOARD_SIZE_Y);
+-    Button move = new Button("MOVE");
+-    private int selectedX = -1;
+-    private int selectedY = -1;
+-    private int rykX = 0;
+-    private int rykY = 0;
+-    private final Brik obj = new Brik("Borzoi",3,3);
+-    private final Bold bold = new Bold(5,7);
++    static ArrayList<Brikker> spillerBrikker1 = new ArrayList<>();
++    static ArrayList<Brikker> spillerBrikker2 = new ArrayList<>(){};
++    static ArrayList<ArrayList<Brikker>> brætBrikker = new ArrayList<>(){};
++    private int ValgtX = -1;
++    private int ValgtY = -1;
+ 
+     @Override
+     public void start(Stage primaryStage) {
+ 
+-        obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\BasicPiece.png");
+-        grafik.getPiecePositions()[obj.getObjPos().getX()][obj.getObjPos().getY()] = true;
++        spillerBrikker1.add(new Brikker("QuarterBack"));
++        spillerBrikker1.add(new Brikker("LineMan"));
++        spillerBrikker2.add(new Brikker("QuarterBack"));
++        spillerBrikker2.add(new Brikker("LineMan"));
++
++        brætBrikker.add(spillerBrikker1);
++        brætBrikker.add(spillerBrikker2);
+ 
+-        bold.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\Bold.png");
+-        grafik.getPiecePositions()[bold.getObjPos().getX()][bold.getObjPos().getY()] = true;
+ 
+ 
+-        grafik.printBoard();
+-        grafik.getPane().setOnMouseClicked(event -> handleMouseClick(event, grafik.getgC()));
+-        move.setOnAction(e -> handleRyk(grafik.getgC()));
++        BrætTilstand testBræt = new BrætTilstand(brætBrikker,18,8,7,7);
++        Grafik grafik = new Grafik(testBræt, 60);
++        testBræt.addPropertyChangeListener(grafik);
++        grafik.sætGrafik(testBræt);
++        grafik.vindue.setOnMouseClicked(event -> handleMouseClick(event, testBræt));
+ 
+-        Scene scene = new Scene(grafik.getPane(), BOARD_SIZE_X * CELL_SIZE, BOARD_SIZE_Y * CELL_SIZE);
+-        primaryStage.setTitle("Board test");
++
++
++        Scene scene = new Scene(grafik.vindue, 18 * 60, 8 * 60);
++        primaryStage.setTitle("Seize The Zone");
+         primaryStage.setScene(scene);
+         primaryStage.show();
++
++        System.out.println(spillerBrikker1.getFirst().navn);
+     }
+ 
+-    private void handleMouseClick(MouseEvent event, GraphicsContext gc) {
+-        int X = (int) (event.getX() / CELL_SIZE);
+-        int Y = (int) (event.getY() / CELL_SIZE);
+-        if (selectedX == -1 && selectedY == -1) {
+-            if (grafik.getPiecePositions()[X][Y]) {
+-                obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\HighlightedPiece.png");
+-                selectedX = X;
+-                selectedY = Y;
+-                rykX = X;
+-                rykY = Y;
++    public void handleMouseClick(MouseEvent event, BrætTilstand testBræt) {
++        int X = (int) (event.getX() / 60);
++        int Y = (int) (event.getY() / 60);
+ 
++
++        if (ValgtX == -1 && ValgtY == -1) {
++            if (!(testBræt.bræt[X][Y] ==null)) {
++                ValgtX = X;
++                ValgtY = Y;
++                testBræt.opdaterValgteFelter(testBræt.brætKoordinater[X][Y]);
+             }
+-        } else {
+-            if(Bræt.getGrænseFelter(Bræt.getBræt()[rykX][rykY]).contains(Bræt.getBræt()[X][Y])) {
+-                grafik.getHighTile()[X][Y] = true;
+-                rykX = X;
+-                rykY = Y;
+-                if (!grafik.getPane().getChildren().contains(move)){
+-                    grafik.getPane().getChildren().add(move);
+-                }
++        }
++        else {
++            if(!(testBræt.bræt[X][Y] ==testBræt.bræt[testBræt.valgteFelter.getFirst()[0]][testBræt.valgteFelter.getFirst()[1]])){
++                testBræt.opdaterBrætTest(new int[]{ValgtX,ValgtY},new int[]{X,Y});
+             }
+ 
+-
+         }
+-        grafik.printBoard();
+     }
+-    private void handleRyk(GraphicsContext gc){
+-        grafik.getPiecePositions()[selectedX][selectedY] = false;
+-        obj.flyt(Bræt.getBræt()[rykX][rykY]);
+-        grafik.getPiecePositions()[rykX][rykY] = true;
+-        obj.setObjSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\BasicPiece.png");
+-        grafik.getPane().getChildren().remove(move);
+-
+-        for (int i = 0; i < grafik.getHighTile().length; ++i) {
+-            Arrays.fill(grafik.getHighTile()[i], false);
+-        }
+-
+-        selectedX = -1;
+-        selectedY = -1;
+-        rykX = 0;
+-        rykY = 0;
+-
+-        grafik.printBoard();
+-    }
+-
+ 
+     public static void main(String[] args) {
+         launch(args);
+Index: src/main/java/com/example/board/Grafik.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.board;\r\n\r\nimport javafx.scene.canvas.Canvas;\r\nimport javafx.scene.canvas.GraphicsContext;\r\nimport javafx.scene.control.ComboBox;\r\nimport javafx.scene.image.Image;\r\nimport javafx.scene.layout.Pane;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Objects;\r\n\r\npublic class Grafik {\r\n    public static final int BOARD_SIZE_X = 18;\r\n    public static final int BOARD_SIZE_Y = 8;\r\n    public static final int CELL_SIZE = 60;\r\n    private final boolean[][] piecePositions = new boolean[BOARD_SIZE_X][BOARD_SIZE_Y];\r\n    private final boolean[][] highTile = new boolean[BOARD_SIZE_X][BOARD_SIZE_Y];\r\n    private final Image highlightedTile = new Image(\"C:\\\\Users\\\\jeppe\\\\Desktop\\\\RUC\\\\Datalogi\\\\5.-Semester---Projekt-main\\\\5.-Semester---Projekt-main\\\\board1\\\\src\\\\main\\\\resources\\\\Sprites\\\\HighlightedTile.png\", CELL_SIZE,CELL_SIZE, true, true);\r\n    private final Canvas canvas = new Canvas(BOARD_SIZE_X * CELL_SIZE, BOARD_SIZE_Y * CELL_SIZE);\r\n    private final GraphicsContext gC = canvas.getGraphicsContext2D();\r\n    private final Pane pane = new Pane(canvas);\r\n    private ComboBox<String> actionBox;\r\n    ArrayList<String> actions = new ArrayList<>();\r\n\r\n    public Grafik(){\r\n    }\r\n    public boolean[][] getPiecePositions() {\r\n        return piecePositions;\r\n    }\r\n    public boolean[][] getHighTile(){\r\n        return highTile;\r\n    }\r\n    public Canvas getCanvas() {\r\n        return canvas;\r\n    }\r\n\r\n    public GraphicsContext getgC() {\r\n        return gC;\r\n    }\r\n\r\n    public Pane getPane() {\r\n        return pane;\r\n    }\r\n    public ComboBox<String> getActionBox(){\r\n        return actionBox;\r\n    }\r\n\r\n    public void printBoard() {\r\n        for (int y = 0; y < BOARD_SIZE_Y; y++) {\r\n            for (int x = 0; x < BOARD_SIZE_X; x++) {\r\n                if (getHighTile()[x][y]) {\r\n                  gC.drawImage(highlightedTile,x * CELL_SIZE, y * CELL_SIZE);\r\n                } else {\r\n                    gC.drawImage(Bræt.getBræt()[x][y].getFeltSprite(), x * CELL_SIZE, y * CELL_SIZE);\r\n                }\r\n                if (piecePositions[x][y]) {\r\n                    gC.drawImage(Bræt.getBræt()[x][y].getFeltObjekt().getObjSprite(), x * CELL_SIZE, y * CELL_SIZE);\r\n                }\r\n            }\r\n        }\r\n    }\r\n\r\n    public ArrayList<String> getActions(){\r\n        actions.add(\"Act1\");\r\n        actions.add(\"Act2\");\r\n        actions.add(\"Act3\");\r\n        return actions;\r\n    }\r\n    public void createActionBox(int x, int y, ArrayList<String> actions){\r\n        actionBox.getItems().addAll(actions);\r\n        actionBox.setLayoutX(x);\r\n        actionBox.setLayoutY(y);\r\n        pane.getChildren().add(actionBox);\r\n    }\r\n    public void removeActionBox(){\r\n        pane.getChildren().remove(actionBox);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/board/Grafik.java b/src/main/java/com/example/board/Grafik.java
+--- a/src/main/java/com/example/board/Grafik.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ b/src/main/java/com/example/board/Grafik.java	(date 1733421926942)
+@@ -1,78 +1,168 @@
+ package com.example.board;
+-
++import java.beans.PropertyChangeEvent;
++import java.beans.PropertyChangeListener;
+ import javafx.scene.canvas.Canvas;
+ import javafx.scene.canvas.GraphicsContext;
+-import javafx.scene.control.ComboBox;
+ import javafx.scene.image.Image;
+ import javafx.scene.layout.Pane;
+ 
+ import java.util.ArrayList;
+ import java.util.Objects;
+ 
+-public class Grafik {
+-    public static final int BOARD_SIZE_X = 18;
+-    public static final int BOARD_SIZE_Y = 8;
+-    public static final int CELL_SIZE = 60;
+-    private final boolean[][] piecePositions = new boolean[BOARD_SIZE_X][BOARD_SIZE_Y];
+-    private final boolean[][] highTile = new boolean[BOARD_SIZE_X][BOARD_SIZE_Y];
+-    private final Image highlightedTile = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\HighlightedTile.png", CELL_SIZE,CELL_SIZE, true, true);
+-    private final Canvas canvas = new Canvas(BOARD_SIZE_X * CELL_SIZE, BOARD_SIZE_Y * CELL_SIZE);
+-    private final GraphicsContext gC = canvas.getGraphicsContext2D();
+-    private final Pane pane = new Pane(canvas);
+-    private ComboBox<String> actionBox;
+-    ArrayList<String> actions = new ArrayList<>();
++public class Grafik implements PropertyChangeListener{
++
++    Canvas canvas;
++    GraphicsContext gC;
++    Pane vindue;
++    int feltStørrelse;
+ 
+-    public Grafik(){
++    public Grafik(BrætTilstand bræt, int feltStørrelse){
++        int[] brætStørrelse = new int[]{bræt.bræt.length,bræt.bræt[0].length};
++        this.feltStørrelse=feltStørrelse;
++        canvas = new Canvas(brætStørrelse[0] * feltStørrelse, brætStørrelse[1] * feltStørrelse);
++        gC = canvas.getGraphicsContext2D();
++        vindue = new Pane(canvas);
+     }
+-    public boolean[][] getPiecePositions() {
+-        return piecePositions;
++
++    @Override
++    public void propertyChange(PropertyChangeEvent evt) {
++        sætGrafik((BrætTilstand) evt.getNewValue());
+     }
+-    public boolean[][] getHighTile(){
+-        return highTile;
+-    }
+-    public Canvas getCanvas() {
+-        return canvas;
+-    }
++
++    void sætGrafik(BrætTilstand brætTilstand){
++        Brikker[][] brikPositioner = brætTilstand.bræt;
++        ArrayList<ArrayList<Brikker>> spillerBrikker = brætTilstand.spillerBrikker;
++        ArrayList<int[]> valgteFelter = brætTilstand.valgteFelter;
++        int [][][] brætKoordinater = brætTilstand.brætKoordinater;
++
++        for (int i=0; i<brikPositioner[1].length;i++){
++            for (int j=0; j<brikPositioner.length;j++){
++
++                String feltBillede;
++                if (j==0 || j==brikPositioner.length-1){
++                    feltBillede = "MålFelt";
++                }
++                else if ((j+i)%2==0){
++                    feltBillede = "Grøn";
++                }
++                else {
++                    feltBillede = "MørkeGrøn";
++                }
+ 
+-    public GraphicsContext getgC() {
+-        return gC;
+-    }
+-
+-    public Pane getPane() {
+-        return pane;
+-    }
+-    public ComboBox<String> getActionBox(){
+-        return actionBox;
+-    }
++                String valg=null;
++                try {
++                    if (valgteFelter.contains(brætKoordinater[j][i])) {
++                        if (brætKoordinater[j][i] == valgteFelter.getFirst()) {
++                            valg = "Brik";
++                        } else {
++                            valg = "Felt";
++                        }
++                    }
++                }catch (Exception ignored){}
++                finally {
++                    if (valg==null) {
++                        valg = "N/A";
++                    }
++                }
++
++                if (brikPositioner[j][i]==null){
++                    lavBillede(feltBillede,valg,"N/A","N/A","N/A",j*feltStørrelse,i*feltStørrelse);
++                    continue;
++                }
+ 
+-    public void printBoard() {
+-        for (int y = 0; y < BOARD_SIZE_Y; y++) {
+-            for (int x = 0; x < BOARD_SIZE_X; x++) {
+-                if (getHighTile()[x][y]) {
+-                  gC.drawImage(highlightedTile,x * CELL_SIZE, y * CELL_SIZE);
++                String brikBillede;
++                if (Objects.equals(brikPositioner[j][i].navn, "Bold")) {
++                    brikBillede = "Bold";
++                    lavBillede(feltBillede,valg,brikBillede,"N/A","N/A",j*feltStørrelse,i*feltStørrelse);
++                    continue;
+                 } else {
+-                    gC.drawImage(Bræt.getBræt()[x][y].getFeltSprite(), x * CELL_SIZE, y * CELL_SIZE);
++                    brikBillede = brikPositioner[j][i].navn;
++                }
++
++                String holdFarve;
++                if (spillerBrikker.getLast().contains(brikPositioner[j][i])){
++                    holdFarve = "Blå";
++                }
++                else {
++                    holdFarve = "Rød";
+                 }
+-                if (piecePositions[x][y]) {
+-                    gC.drawImage(Bræt.getBræt()[x][y].getFeltObjekt().getObjSprite(), x * CELL_SIZE, y * CELL_SIZE);
++
++                String brikStatus;
++                if (brikPositioner[j][i].væltet){
++                    brikStatus = "Væltet";
+                 }
+-            }
+-        }
+-    }
++                else if (brikPositioner[j][i].harBold){
++                    brikStatus = "HarBold";
++                } else {
++                    brikStatus = "N/A";
++                }
++                lavBillede(feltBillede,valg,brikBillede,holdFarve,brikStatus,j*feltStørrelse,i*feltStørrelse);
++                System.out.println(feltBillede+", "+valg+", "+brikBillede+", "+holdFarve+", "+brikStatus);
++            }
++        }
+ 
+-    public ArrayList<String> getActions(){
+-        actions.add("Act1");
+-        actions.add("Act2");
+-        actions.add("Act3");
+-        return actions;
+     }
+-    public void createActionBox(int x, int y, ArrayList<String> actions){
+-        actionBox.getItems().addAll(actions);
+-        actionBox.setLayoutX(x);
+-        actionBox.setLayoutY(y);
+-        pane.getChildren().add(actionBox);
+-    }
+-    public void removeActionBox(){
+-        pane.getChildren().remove(actionBox);
++
++
++    void lavBillede(String feltType, String inputStatus, String brikNavn, String holdFarve, String brikStatus, int x, int y){
++
++        Image image = switch (feltType) {
++            case "MålFelt" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\MålFelt.png");
++            case "Grøn" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\GrøntFelt.png");
++            case "MørkeGrøn" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\MørkeGrøntFelt.png");
++            default -> null;
++        };
++        gC.drawImage(image,x,y, 60, 60);
++
++        switch (inputStatus) {
++            case "Felt":
++                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\HighlightedTile.png");
++                gC.drawImage(image,x,y, 60, 60);
++                break;
++            case "Brik":
++                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\ValgtSpiller.png");
++                gC.drawImage(image,x,y, 60, 60);
++                break;
++            default:
++                break;
++        };
++
++        switch (brikNavn) {
++            case "Bold":
++                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\Bold.png");
++
++                gC.drawImage(image,x,y, 60, 60);
++                return;
++            case "QuarterBack":
++                System.out.println(holdFarve);
++                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\"+holdFarve+"QB.png");
++                break;
++            case "LineMan":
++                System.out.println(holdFarve);
++                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\"+holdFarve+"LM.png");
++                break;
++            default:
++                return;
++        }
++        if (Objects.equals(holdFarve, "Blå")){
++            System.out.println(holdFarve);
++            gC.drawImage(image,x,y, 60, 60);
++        } else {
++            System.out.println(holdFarve);
++            gC.drawImage(image,x+60,y, -60, 60);
++        }
++
++        switch (brikStatus) {
++            case "Væltet":
++                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\Væltet.png");
++                break;
++            case "HarBold":
++                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\SpillerBold.png");
++                break;
++            default:
++                return;
++        }
++        gC.drawImage(image,x,y, 60, 60);
++
+     }
+ }
+Index: src/main/java/com/example/board/HelloController.java
+===================================================================
+diff --git a/src/main/java/com/example/board/HelloController.java b/src/main/java/com/example/board/HelloController.java
+deleted file mode 100644
+--- a/src/main/java/com/example/board/HelloController.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ /dev/null	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
+@@ -1,14 +0,0 @@
+-package com.example.board;
+-
+-import javafx.fxml.FXML;
+-import javafx.scene.control.Label;
+-
+-public class HelloController {
+-    @FXML
+-    private Label welcomeText;
+-
+-    @FXML
+-    protected void onHelloButtonClick() {
+-        welcomeText.setText("Welcome to JavaFX Application!");
+-    }
+-}
+\ No newline at end of file
+Index: src/main/java/com/example/board/Felt.java
+===================================================================
+diff --git a/src/main/java/com/example/board/Felt.java b/src/main/java/com/example/board/Felt.java
+deleted file mode 100644
+--- a/src/main/java/com/example/board/Felt.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ /dev/null	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
+@@ -1,80 +0,0 @@
+-package com.example.board;
+-
+-import javafx.scene.image.Image;
+-
+-import java.util.Objects;
+-
+-import static com.example.board.Grafik.CELL_SIZE;
+-
+-public class Felt {
+-    private final int posX;
+-    private final int posY;
+-    private SpilObjekt feltObjekt;
+-    private Image feltSprite;
+-
+-    public Felt(int xPos, int yPos){
+-        this.posX=xPos;
+-        this.posY=yPos;
+-    }
+-
+-    public Image getFeltSprite() {
+-        return feltSprite;
+-    }
+-
+-    public void setFeltSprite(String path) {
+-        this.feltSprite = new Image(path, CELL_SIZE, CELL_SIZE, true, true);
+-    }
+-
+-    public boolean isTomt(){
+-        return this.feltObjekt != null;
+-    }
+-    public SpilObjekt getFeltObjekt(){
+-        return this.feltObjekt;
+-    }
+-    public void fjernFeltObjekt(){
+-        this.feltObjekt=null;
+-    }
+-    public void setFeltObjekt(SpilObjekt obj){
+-        this.feltObjekt=obj;
+-    }
+-    public int getX() {
+-        return this.posX;
+-    }
+-    public int getY() {
+-        return this.posY;
+-    }
+-
+-
+-    /*
+-    public void fjernBrik(){
+-        this.brikPåFelt=null;
+-    }
+-    public void setBrikPåFelt(Brik brik){
+-        brik.setPos(this.pos[0],this.pos[1]);
+-        this.brikPåFelt=brik;
+-    }
+-    public Brik getBrikPåFelt(){
+-        return brikPåFelt;
+-    }
+-    public boolean getFeltTomt(){
+-        return boldPåFelt == null;
+-    }
+-    public void fjernBold(){
+-        this.boldPåFelt=null;
+-    }
+-    public void setBoldPåFelt(Bold bold){
+-        bold.setBoldFelt(this);
+-        this.boldPåFelt=bold;
+-    }
+-    public Bold getBoldPåFelt() {
+-        return boldPåFelt;
+-    }
+-
+-    public boolean isMålFelt() {
+-        return målFelt;
+-    }
+-
+-     */
+-
+-
+-}
+Index: src/main/java/com/example/board/HelloApplication.java
+===================================================================
+diff --git a/src/main/java/com/example/board/HelloApplication.java b/src/main/java/com/example/board/HelloApplication.java
+deleted file mode 100644
+--- a/src/main/java/com/example/board/HelloApplication.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ /dev/null	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
+@@ -1,23 +0,0 @@
+-package com.example.board;
+-
+-import javafx.application.Application;
+-import javafx.fxml.FXMLLoader;
+-import javafx.scene.Scene;
+-import javafx.stage.Stage;
+-
+-import java.io.IOException;
+-
+-public class HelloApplication extends Application {
+-    @Override
+-    public void start(Stage stage) throws IOException {
+-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+-        stage.setTitle("Hello!");
+-        stage.setScene(scene);
+-        stage.show();
+-    }
+-
+-    public static void main(String[] args) {
+-        launch();
+-    }
+-}
+\ No newline at end of file
+Index: src/main/java/com/example/board/SpilObjekt.java
+===================================================================
+diff --git a/src/main/java/com/example/board/SpilObjekt.java b/src/main/java/com/example/board/SpilObjekt.java
+deleted file mode 100644
+--- a/src/main/java/com/example/board/SpilObjekt.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ /dev/null	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
+@@ -1,39 +0,0 @@
+-package com.example.board;
+-
+-import javafx.scene.image.Image;
+-
+-import static com.example.board.Grafik.CELL_SIZE;
+-
+-public abstract class SpilObjekt {
+-    private Felt objPos;
+-    private Image objSprite;
+-
+-    public SpilObjekt(){
+-    }
+-
+-    public Image getObjSprite() {
+-        return objSprite;
+-    }
+-    public void setObjSprite(String path) {
+-        this.objSprite = new Image(path, CELL_SIZE, CELL_SIZE, true, true);
+-    }
+-
+-    public void fjern(){
+-        this.objPos.fjernFeltObjekt();
+-        this.objPos=null;
+-    }
+-    public void set(Felt felt){
+-        this.objPos=felt;
+-        this.objPos.setFeltObjekt(this);
+-    }
+-    public void flyt(Felt felt){
+-        this.fjern();
+-        this.set(felt);
+-    }
+-
+-    public Felt getObjPos() {
+-        return objPos;
+-    }
+-    abstract public SpilObjekt getObj();
+-    abstract public String getObjType();
+-}
+Index: interface/Main.java
+===================================================================
+diff --git a/interface/Main.java b/interface/Main.java
+deleted file mode 100644
+--- a/interface/Main.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ /dev/null	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
+@@ -1,176 +0,0 @@
+-package com.example.board;
+-
+-import javafx.application.Application;
+-import javafx.scene.Scene;
+-import javafx.scene.canvas.GraphicsContext;
+-import javafx.scene.control.ComboBox;
+-import javafx.scene.input.MouseEvent;
+-import javafx.stage.Stage;
+-
+-
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-import java.util.List;
+-
+-import static com.example.board.Grafik.CELL_SIZE;
+-import static com.example.board.Grafik.BOARD_SIZE_X;
+-import static com.example.board.Grafik.BOARD_SIZE_Y;
+-
+-public class Main extends Application {
+-
+-    public static final Grafik grafik = new Grafik();
+-    private static final Bræt bane = new Bræt(16, BOARD_SIZE_X, BOARD_SIZE_Y);
+-
+-
+-    ComboBox<String> aktion = new ComboBox<>();
+-
+-
+-
+-    private int ValgtX = -1;
+-    private int ValgtY = -1;
+-
+-
+-    private final List<int[]> valgtfelt = new ArrayList<>();
+-
+-    private final Brik obj = new Brik("Borzoi", 3, 3);
+-    private final Bold bold = new Bold(5, 7);
+-
+-    @Override
+-    public void start(Stage primaryStage) {
+-
+-        obj.setObjSprite("C:\\Users\\esben\\Desktop\\SeizeTheZone-Ver-0.2-Nyeste-\\SeizeTheZone-Ver-0.2-Nyeste-\\Sprites\\BasicPiece.png");
+-        grafik.getPiecePositions()[obj.getObjPos().getX()][obj.getObjPos().getY()] = true;
+-
+-        bold.setObjSprite("C:\\Users\\esben\\Desktop\\SeizeTheZone-Ver-0.2-Nyeste-\\SeizeTheZone-Ver-0.2-Nyeste-\\Sprites\\Bold.png");
+-        grafik.getPiecePositions()[bold.getObjPos().getX()][bold.getObjPos().getY()] = true;
+-
+-        grafik.printBoard();
+-        grafik.getPane().setOnMouseClicked(event -> handleMouseClick(event, grafik.getgC()));
+-
+-
+-        aktion.getItems().addAll("Move Here", "Cancel");
+-        aktion.setOnAction(e -> feldthandler());
+-
+-        Scene scene = new Scene(grafik.getPane(), BOARD_SIZE_X * CELL_SIZE, BOARD_SIZE_Y * CELL_SIZE);
+-        primaryStage.setTitle("Seize The Zone");
+-        primaryStage.setScene(scene);
+-        primaryStage.show();
+-    }
+-
+-    public void handleMouseClick(MouseEvent event, GraphicsContext gc) {
+-        int X = (int) (event.getX() / CELL_SIZE);
+-        int Y = (int) (event.getY() / CELL_SIZE);
+-
+-
+-        if (ValgtX == -1 && ValgtY == -1) {
+-            if (grafik.getPiecePositions()[X][Y]) {
+-
+-                //obj.setObjSprite("C:\\Users\\esben\\Desktop\\SeizeTheZone-Ver-0.2-Nyeste-\\SeizeTheZone-Ver-0.2-Nyeste-\\Sprites\\HighlightedPiece.png");
+-                ValgtX = X;
+-                ValgtY = Y;
+-
+-
+-                highlightfeldt(X, Y);
+-                valgtfelt.add(new int[]{X, Y});
+-
+-                grafik.printBoard();
+-            }
+-        }
+-
+-        else {
+-            int[] sidstefeldt = valgtfelt.get(valgtfelt.size() - 1);
+-            int lastX = sidstefeldt[0];
+-            int lastY = sidstefeldt[1];
+-
+-            if (erfeldttæt(X, Y, lastX, lastY)) {
+-                if (!erfeldtvalgt(X, Y)) {
+-                    valgtfelt.add(new int[]{X, Y});
+-                    highlightfeldt(X, Y);
+-                }
+-
+-
+-                aktion.setLayoutX(X * CELL_SIZE );
+-                aktion.setLayoutY(Y * CELL_SIZE + CELL_SIZE/3);
+-                aktion.setPrefSize(CELL_SIZE, CELL_SIZE/3);
+-
+-                if (!grafik.getPane().getChildren().contains(aktion)) {
+-                    grafik.getPane().getChildren().add(aktion);
+-                }
+-
+-                grafik.printBoard();
+-            }
+-        }
+-    }
+-
+-    private void feldthandler() {
+-        String action = aktion.getValue();
+-        if (action == null) {
+-            return;
+-        }
+-
+-        switch (action) {
+-            case "Move Here":
+-                int[] sidstefeldt = valgtfelt.get(valgtfelt.size() - 1);
+-                int targetX = sidstefeldt[0];
+-                int targetY = sidstefeldt[1];
+-
+-                grafik.getPiecePositions()[ValgtX][ValgtY] = false;
+-                obj.flyt(Bræt.getBræt()[targetX][targetY]);
+-                grafik.getPiecePositions()[targetX][targetY] = true;
+-                obj.setObjSprite("C:\\Users\\esben\\Desktop\\SeizeTheZone-Ver-0.2-Nyeste-\\SeizeTheZone-Ver-0.2-Nyeste-\\Sprites\\BasicPiece.png");
+-
+-                break;
+-
+-
+-            case "Cancel":
+-
+-                resetvalg();
+-                break;
+-
+-            default:
+-                break;
+-        }
+-
+-        //reseter comboboxen så den samme ting kan vælges to gange i træk.
+-        aktion.setValue(null);
+-        grafik.getPane().getChildren().remove(aktion);
+-        resetvalg();
+-        grafik.printBoard();
+-    }
+-
+-    private void highlightfeldt(int x, int y) {
+-        grafik.getHighTile()[x][y] = true;
+-    }
+-
+-    private boolean erfeldtvalgt(int x, int y) {
+-        for (int[] square : valgtfelt) {
+-            if (square[0] == x && square[1] == y) {
+-                return true;
+-            }
+-        }
+-        return false;
+-    }
+-
+-    private boolean erfeldttæt(int x1, int y1, int x2, int y2) {
+-        return Math.abs(x1 - x2) <= 1 && Math.abs(y1 - y2) <= 1;
+-    }
+-
+-    private boolean isValidCoordinate(int x, int y) {
+-        return x >= 0 && x < BOARD_SIZE_X && y >= 0 && y < BOARD_SIZE_Y;
+-    }
+-
+-    private void resetvalg() {
+-
+-        for (int i = 0; i < grafik.getHighTile().length; ++i) {
+-            Arrays.fill(grafik.getHighTile()[i], false);
+-        }
+-
+-        ValgtX = -1;
+-        ValgtY = -1;
+-        valgtfelt.clear();
+-    }
+-
+-    public static void main(String[] args) {
+-        launch(args);
+-    }
+-}
+Index: src/main/java/com/example/board/Bræt.java
+===================================================================
+diff --git a/src/main/java/com/example/board/Bræt.java b/src/main/java/com/example/board/Bræt.java
+deleted file mode 100644
+--- a/src/main/java/com/example/board/Bræt.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ /dev/null	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
+@@ -1,154 +0,0 @@
+-package com.example.board;
+-
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-
+-public class Bræt {
+-    private static Felt[][] bræt;
+-    private static Felt[] målFelter;
+-    private static Felt[] kampLinje;
+-    private static int maxTurer;
+-    private static int tur;
+-
+-    //private static Spiller aktivSpiller;
+-    //private static Spiller angriber;
+-
+-
+-    public Bræt(int turer, int brætX, int brætY) {
+-        maxTurer = turer;
+-        bræt = new Felt[brætX][brætY];
+-        målFelter = new Felt[brætY * 2];
+-
+-        int målLinje = 0;
+-        for (int x = 0; x < brætX; x++) {
+-            for (int y = 0; y < brætY; y++) {
+-
+-                Felt felt = new Felt(x, y);
+-                bræt[x][y] = felt;
+-
+-                if (x == 0 || x == brætX - 1) {
+-                    målFelter[målLinje] = felt;
+-                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\MålFelt.png");
+-                    målLinje++;
+-                } else if ((x + y) % 2 == 0) {
+-                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\GrøntFelt.png");
+-                } else {
+-                    felt.setFeltSprite("C:\\Users\\jeppe\\Desktop\\RUC\\Datalogi\\5.-Semester---Projekt-main\\5.-Semester---Projekt-main\\board1\\src\\main\\resources\\Sprites\\MørkeGrøntFelt.png");
+-                }
+-
+-
+-            }
+-
+-        }
+-    }
+-
+-    public static Felt[][] getBræt() {
+-        return bræt;
+-    }
+-
+-    /*
+-    public static void flytSpilObj(SpilObjekt obj, Felt felt) {
+-        obj.fjern();
+-        obj.set(felt);
+-    }
+-
+-    public static void vælgFelt(int x, int y) {
+-        Felt felt = bræt[x][y];
+-        if (Handler.getAktivBrik() == null) {
+-            for (Brik b : aktivSpiller.getSpillerBrikker()) {
+-                if (b.getObjPos() == felt) {
+-                    Handler.setAktivBrik(b);
+-                    return;
+-                }
+-            }
+-        } else if (felt == Handler.getAktivBrik().getObjPos()) {
+-            Handler.setAktivBrik(null);
+-        } else if (getGrænseFelter(Handler.getEndeFelt()).contains(felt)) {
+-            Handler.addToQueue(felt);
+-        }
+-    }
+-     */
+-
+-
+-    public static ArrayList<Felt> getGrænseFelter(Felt orgFelt) {
+-        ArrayList<Felt> grænseListe = new ArrayList<>();
+-        Felt[][] grænseFelter = new Felt[3][3];
+-        int y = -1;
+-        int x = -1;
+-        for (int i = 0; i < 3; i++) {
+-            for (int j = 0; j < 3; j++) {
+-                try {
+-                    grænseFelter[j][i] = bræt[orgFelt.getX() + x][orgFelt.getY() + y];
+-                } catch (Exception ignored) {
+-                }
+-                x++;
+-            }
+-            x = -1;
+-            y++;
+-        }
+-        for (Felt[] array : grænseFelter) {
+-            grænseListe.addAll(Arrays.asList(array));
+-        }
+-        return grænseListe;
+-    }
+-
+-    public static ArrayList<Felt> getTommeGrænseFelter(Felt felt) {
+-        ArrayList<Felt> tommeFelter = new ArrayList<>();
+-        for (Felt tFelt : getGrænseFelter(felt)) {
+-            if (tFelt.isTomt()) {
+-                tommeFelter.add(tFelt);
+-            }
+-        }
+-        return tommeFelter;
+-    }
+-
+-
+-    /*
+-    public static void flytBrik(Brik brik, Felt felt) {
+-        if (brik.getBrikPos() == felt.getPos()) {
+-            System.out.println(" ");
+-            System.out.println("Brik står allerede på dette felt");
+-            System.out.println(" ");
+-            clearValg();
+-            return;
+-        }
+-        int[] dir;
+-        if (brik == valgteBrik && valgteFelter.size() > 1) {
+-            dir = getDirection(valgteFelter.get(valgteFelter.size() - 2), felt);
+-        } else {
+-            dir = getDirection(bræt[brik.getBrikPos()[0]][brik.getBrikPos()[1]], felt);
+-        }
+-        if (!felt.getFeltTomt()) {
+-            Brik tBrik = felt.getBrikPåFelt();
+-            if (!brikQueue.contains(brik)) {
+-                brikQueue.add(brik);
+-            }
+-            brikQueue.add(tBrik);
+-            Felt nyFelt;
+-            try {
+-                nyFelt = bræt[felt.getPos()[0] + dir[0]][felt.getPos()[1] + dir[1]];
+-                flytBrik(tBrik, nyFelt);
+-            } catch (Exception e) {
+-                tBrik.væltBrik();
+-                fjernBrik(valgteBrik.getBrikPos()[0], valgteBrik.getBrikPos()[1]);
+-                try {
+-                    setBrik(valgteBrik, valgteFelter.get(valgteFelter.size() - 2).getPos()[0], valgteFelter.get(valgteFelter.size() - 2).getPos()[1]);
+-                } catch (Exception o) {
+-                    setBrik(getValgteBrik(), getValgteBrik().getBrikPos()[0], getValgteBrik().getBrikPos()[1]);
+-                }
+-            }
+-        } else {
+-            Felt lastFelt = bræt[brik.getBrikPos()[0]][brik.getBrikPos()[1]];
+-            fjernBrik(brik.getBrikPos()[0], brik.getBrikPos()[1]);
+-            setBrik(brik, felt.getPos()[0], felt.getPos()[1]);
+-            try {
+-                brikQueue.removeLast();
+-                Brik qBrik = brikQueue.getLast();
+-                flytBrik(qBrik, lastFelt);
+-            } catch (Exception ignored) {
+-            }
+-        }
+-        clearValg();
+-    }
+-     */
+-}
+Index: src/main/java/com/example/board/Brik.java
+===================================================================
+diff --git a/src/main/java/com/example/board/Brik.java b/src/main/java/com/example/board/Brik.java
+deleted file mode 100644
+--- a/src/main/java/com/example/board/Brik.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ /dev/null	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
+@@ -1,130 +0,0 @@
+-package com.example.board;
+-
+-import java.util.ArrayList;
+-import java.util.Arrays;
+-
+-public class Brik extends SpilObjekt{
+-    public final String navn;
+-    //private Bold harBold;
+-    private boolean væltet=false;
+-    //private Spiller ejer;
+-    private boolean brugtBevægelse;
+-    private boolean brugtAction;
+-    private Bold harBold;
+-
+-    //private final ArrayList<Felt> bevægelse;
+-
+-
+-    public Brik(String navn, int x, int y){
+-        this.navn=navn;
+-        this.set(Bræt.getBræt()[x][y]);
+-    }
+-    @Override
+-    public Brik getObj() {
+-        return this;
+-    }
+-    @Override
+-    public String getObjType() {
+-        return "BRIK";
+-    }
+-
+-
+-
+-    public Bold getBold(){
+-        return this.harBold;
+-    }
+-    public void pickUpBold(Bold bold){
+-        this.harBold=bold;
+-        bold.fjern();
+-    }
+-
+-    /*
+-    public ArrayList<Felt> getBevægelse(){
+-        return this.bevægelse;
+-    }
+-
+-    public ArrayList<Felt> createBevægelse(){
+-        Felt[][] brikBevægelse = new Felt[5][5];
+-        ArrayList<Felt> bevægelsesListe = new ArrayList<>();
+-        int y=-2;
+-        int x=-2;
+-        for (int i=0; i<5; i++){
+-            for (int j=0; j<5; j++){
+-                try {
+-                    brikBevægelse[i][j] = Bræt.getBræt()[this.getObjPos().getX()][this.getObjPos().getY()];
+-                } catch (Exception ignored){}
+-                x++;
+-            }
+-            x=-2;
+-            y++;
+-        }
+-        for (Felt[] array : brikBevægelse) {
+-            bevægelsesListe.addAll(Arrays.asList(array));
+-        }
+-
+-        return bevægelsesListe;
+-    }
+-    public boolean isVæltet(){
+-        return this.væltet;
+-    }
+-    public void brugAction() {
+-        this.brugtAction=true;
+-    }
+-    public void brugBevægelse() {
+-        this.brugtBevægelse = true;
+-    }
+-
+-    @Override
+-    public void tackle(){
+-        System.out.println("TACKLE");
+-    }
+-    @Override
+-    public int tackleCost(){
+-        return 3;
+-    }
+-
+-
+-
+-
+-
+-
+-
+-    public static void createSpillerBrik(Spiller spiller, String brikNavn){
+-        Brik nyBrik = new Brik(brikNavn);
+-        nyBrik.hold=spiller.hold;
+-        nyBrik.brikEjer=spiller;
+-
+-        for (int i=0; i<spiller.spillerBrikker.length;i++){
+-            if (spiller.spillerBrikker[i]==null){
+-                spiller.spillerBrikker[i]=nyBrik;
+-                break;
+-            }
+-        }
+-    }
+-
+-    public void setPos(int y, int x) {
+-        this.brikPos[0]=y;
+-        this.brikPos[1]=x;
+-    }
+-    public int[] getBrikPos() {
+-        return brikPos;
+-    }
+-    public void resetBrik(){
+-        this.brugtBevægelse=false;
+-        this.brugtAction=false;
+-    }
+-    public void væltBrik(){
+-        this.væltet=true;
+-    }
+-    public void rejsBrik(){
+-        this.væltet=false;
+-    }
+-    public boolean isBoldHolder(){
+-        return this.boldHolder;
+-    }
+-     */
+-
+-
+-
+-}
+-
+Index: src/main/java/com/example/board/Handler.java
+===================================================================
+diff --git a/src/main/java/com/example/board/Handler.java b/src/main/java/com/example/board/Handler.java
+deleted file mode 100644
+--- a/src/main/java/com/example/board/Handler.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ /dev/null	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
+@@ -1,117 +0,0 @@
+-/*
+-package com.example.board;
+-
+-import java.lang.reflect.Array;
+-import java.util.ArrayList;
+-import java.util.Collections;
+-
+-public class Handler {
+-
+-    private static Brik aktivBrik;
+-    private static Bold bold;
+-    private static ArrayList<Brik> brikQueue;
+-    private static ArrayList<Felt> feltQueue;
+-
+-    public Handler(){
+-
+-    }
+-    public static Brik getAktivBrik() {
+-        return aktivBrik;
+-    }
+-    public static void setAktivBrik(Brik aktivBrik) {
+-        clearHandler();
+-        Handler.aktivBrik = aktivBrik;
+-        addToQueue(aktivBrik);
+-        //Add bevægelsesmuligheder
+-    }
+-
+-    public static Bold getBold() {
+-        return bold;
+-    }
+-    public static void setBold(Bold bold) {
+-        Handler.bold = bold;
+-    }
+-    public static ArrayList<Brik> getBrikQueue() {
+-        return brikQueue;
+-    }
+-    public static ArrayList<Felt> getFeltQueue() {
+-        return feltQueue;
+-    }
+-    public static void addToQueue(Brik brik){
+-        brikQueue.add(brik);
+-    }
+-    public static void addToQueue(Felt felt){
+-        feltQueue.add(felt);
+-    }
+-    public static void clearHandler(){
+-        aktivBrik=null;
+-        bold=null;
+-        brikQueue.clear();
+-        feltQueue.clear();
+-    }
+-
+-    public static Felt getEndeFelt() {
+-        try {
+-            return feltQueue.getLast();
+-        } catch (Exception intetValgt){
+-            return aktivBrik.getObjPos();
+-        }
+-    }
+-    public static Felt getPenUlFelt() {
+-        try {
+-            return feltQueue.get(feltQueue.size()-2);
+-        } catch (Exception intetValgt){
+-            return aktivBrik.getObjPos();
+-        }
+-    }
+-
+-
+-    public static int[] getDirection(Felt fra, Felt til){
+-        int X,Y;
+-        X= Integer.compare(til.getX(), fra.getX());
+-        Y= Integer.compare(til.getY(), fra.getY());
+-        return new int[]{Y,X};
+-    }
+-    public static Felt getDirFelt(Felt fra, Felt til){
+-        return Bræt.getBræt()[til.getX()+getDirection(fra,til)[0]][til.getY()+getDirection(fra,til)[1]];
+-    }
+-
+-    public static void handleRyk(){
+-        Felt endeFelt = getEndeFelt();
+-        Felt penUlFelt = getPenUlFelt();
+-        Felt dirFelt = getDirFelt(penUlFelt,endeFelt);
+-        ArrayList<Felt> tommeFelter = Bræt.getTommeGrænseFelter(endeFelt);
+-        Collections.shuffle(tommeFelter);
+-
+-        switch (endeFelt.getFeltVærdi()){
+-            case 0:
+-                //Tomt felt
+-                aktivBrik.flyt(endeFelt);
+-                break;
+-            case 1:
+-                //Brik
+-                break;
+-            case 2:
+-                //Væltet brik
+-                Brik vBrik = (Brik) endeFelt.getFeltObjekt().getObj();
+-                vBrik.flyt(tommeFelter.getFirst());
+-                aktivBrik.flyt(endeFelt);
+-                break;
+-            case 3:
+-                //Brik med bold
+-                break;
+-            case 4:
+-                //Bold
+-                aktivBrik.flyt(endeFelt);
+-                aktivBrik.pickUpBold(bold);
+-                break;
+-            default:
+-
+-        }
+-
+-        clearHandler();
+-    }
+-}
+-
+- */
+-
+Index: .idea/uiDesigner.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/uiDesigner.xml b/.idea/uiDesigner.xml
+new file mode 100644
+--- /dev/null	(date 1733394793497)
++++ b/.idea/uiDesigner.xml	(date 1733394793497)
+@@ -0,0 +1,124 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Palette2">
++    <group name="Swing">
++      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.svg" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
++      </item>
++      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.svg" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
++      </item>
++      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.svg" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.svg" removable="false" auto-create-binding="false" can-attach-label="true">
++        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
++        <initial-values>
++          <property name="text" value="Button" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="RadioButton" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="CheckBox" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.svg" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="Label" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.svg" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.svg" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.svg" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.svg" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.svg" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
++          <preferred-size width="200" height="200" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.svg" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
++          <preferred-size width="200" height="200" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.svg" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.svg" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
++      </item>
++      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.svg" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
++          <preferred-size width="-1" height="20" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.svg" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
++      </item>
++      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
++      </item>
++    </group>
++  </component>
++</project>
+\ No newline at end of file
+Index: src/main/java/com/example/board/QuarterBack.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/board/QuarterBack.java b/src/main/java/com/example/board/QuarterBack.java
+new file mode 100644
+--- /dev/null	(date 1733414926740)
++++ b/src/main/java/com/example/board/QuarterBack.java	(date 1733414926740)
+@@ -0,0 +1,15 @@
++package com.example.board;
++
++import java.util.ArrayList;
++
++public class QuarterBack extends Brikker {
++
++    public QuarterBack(){
++
++    }
++    @Override
++    public ArrayList<int[]> bevægelsesMuligheder() {
++        ArrayList<int[]> bevægelse = new ArrayList<>();
++        return bevægelse;
++    }
++}
+\ No newline at end of file
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>com.example</groupId>\r\n    <artifactId>board1</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n    <name>board1</name>\r\n\r\n    <properties>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n        <junit.version>5.10.0</junit.version>\r\n    </properties>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-controls</artifactId>\r\n            <version>20.0.1</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-fxml</artifactId>\r\n            <version>21</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-web</artifactId>\r\n            <version>21</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-swing</artifactId>\r\n            <version>21</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-media</artifactId>\r\n            <version>21</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.controlsfx</groupId>\r\n            <artifactId>controlsfx</artifactId>\r\n            <version>11.1.2</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>com.dlsc.formsfx</groupId>\r\n            <artifactId>formsfx-core</artifactId>\r\n            <version>11.6.0</version>\r\n            <exclusions>\r\n                <exclusion>\r\n                    <groupId>org.openjfx</groupId>\r\n                    <artifactId>*</artifactId>\r\n                </exclusion>\r\n            </exclusions>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>net.synedra</groupId>\r\n            <artifactId>validatorfx</artifactId>\r\n            <version>0.4.0</version>\r\n            <exclusions>\r\n                <exclusion>\r\n                    <groupId>org.openjfx</groupId>\r\n                    <artifactId>*</artifactId>\r\n                </exclusion>\r\n            </exclusions>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.kordamp.ikonli</groupId>\r\n            <artifactId>ikonli-javafx</artifactId>\r\n            <version>12.3.1</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.kordamp.bootstrapfx</groupId>\r\n            <artifactId>bootstrapfx-core</artifactId>\r\n            <version>0.4.0</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>eu.hansolo</groupId>\r\n            <artifactId>tilesfx</artifactId>\r\n            <version>11.48</version>\r\n            <exclusions>\r\n                <exclusion>\r\n                    <groupId>org.openjfx</groupId>\r\n                    <artifactId>*</artifactId>\r\n                </exclusion>\r\n            </exclusions>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>com.github.almasb</groupId>\r\n            <artifactId>fxgl</artifactId>\r\n            <version>17.3</version>\r\n            <exclusions>\r\n                <exclusion>\r\n                    <groupId>org.openjfx</groupId>\r\n                    <artifactId>*</artifactId>\r\n                </exclusion>\r\n            </exclusions>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-api</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-engine</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.apache.maven.plugins</groupId>\r\n                <artifactId>maven-compiler-plugin</artifactId>\r\n                <version>3.11.0</version>\r\n                <configuration>\r\n                    <source>21</source>\r\n                    <target>21</target>\r\n                </configuration>\r\n            </plugin>\r\n            <plugin>\r\n                <groupId>org.openjfx</groupId>\r\n                <artifactId>javafx-maven-plugin</artifactId>\r\n                <version>0.0.8</version>\r\n                <executions>\r\n                    <execution>\r\n                        <!-- Default configuration for running with: mvn clean javafx:run -->\r\n                        <id>default-cli</id>\r\n                        <configuration>\r\n                            <mainClass>com.example.board1/com.example.board.HelloApplication</mainClass>\r\n                            <launcher>app</launcher>\r\n                            <jlinkZipName>app</jlinkZipName>\r\n                            <jlinkImageName>app</jlinkImageName>\r\n                            <noManPages>true</noManPages>\r\n                            <stripDebug>true</stripDebug>\r\n                            <noHeaderFiles>true</noHeaderFiles>\r\n                        </configuration>\r\n                    </execution>\r\n                </executions>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ b/pom.xml	(date 1733417504002)
+@@ -5,7 +5,7 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <groupId>com.example</groupId>
+-    <artifactId>board1</artifactId>
++    <artifactId>bræt</artifactId>
+     <version>1.0-SNAPSHOT</version>
+     <name>board1</name>
+ 
+Index: src/main/java/com/example/board/Brikker.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/board/Brikker.java b/src/main/java/com/example/board/Brikker.java
+new file mode 100644
+--- /dev/null	(date 1733397841572)
++++ b/src/main/java/com/example/board/Brikker.java	(date 1733397841572)
+@@ -0,0 +1,25 @@
++package com.example.board;
++
++import java.util.ArrayList;
++
++public class Brikker implements Actions {
++    String navn;
++    //Brik status
++    boolean væltet=false;
++    boolean harBold=false;
++    boolean brugtBevægelse=false;
++    boolean brugtAction=false;
++
++    //Atributter
++    int standhaftig=0;
++    int klæbeHænder=0;
++
++    public Brikker(){}
++    public Brikker(String navn){
++        this.navn=navn;
++    }
++    public ArrayList<int[]> bevægelsesMuligheder() {
++        ArrayList<int[]> bevægelse = new ArrayList<>();
++        return bevægelse;
++    }
++}
+\ No newline at end of file
+Index: src/main/java/module-info.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>module com.example.board {\r\n    requires javafx.controls;\r\n    requires javafx.fxml;\r\n    requires javafx.web;\r\n\r\n    requires org.controlsfx.controls;\r\n    requires com.dlsc.formsfx;\r\n    requires net.synedra.validatorfx;\r\n    requires org.kordamp.ikonli.javafx;\r\n    requires org.kordamp.bootstrapfx.core;\r\n    requires eu.hansolo.tilesfx;\r\n    requires com.almasb.fxgl.all;\r\n\r\n    opens com.example.board to javafx.fxml;\r\n    exports com.example.board;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/module-info.java b/src/main/java/module-info.java
+--- a/src/main/java/module-info.java	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ b/src/main/java/module-info.java	(date 1733399951418)
+@@ -10,6 +10,7 @@
+     requires org.kordamp.bootstrapfx.core;
+     requires eu.hansolo.tilesfx;
+     requires com.almasb.fxgl.all;
++    requires java.desktop;
+ 
+     opens com.example.board to javafx.fxml;
+     exports com.example.board;
+Index: src/main/java/com/example/board/BrætTilstand.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/board/BrætTilstand.java b/src/main/java/com/example/board/BrætTilstand.java
+new file mode 100644
+--- /dev/null	(date 1733421958808)
++++ b/src/main/java/com/example/board/BrætTilstand.java	(date 1733421958808)
+@@ -0,0 +1,197 @@
++package com.example.board;
++
++import java.beans.PropertyChangeListener;
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.beans.PropertyChangeSupport;
++
++public class BrætTilstand {
++    //Spiller variabler
++    ArrayList<ArrayList<Brikker>> spillerBrikker = new ArrayList<>();
++    int[] spillerMål = new int[]{0,0};
++    int [] actionPoints;
++
++    //Bræt variabler
++    Brikker[][] bræt;
++    final int [][][] brætKoordinater;
++    int tur;
++
++    //Input variabler
++    ArrayList<int[]> valgteFelter;
++
++    //PropertyChange
++    private final PropertyChangeSupport brætÆndring;
++
++    public BrætTilstand(ArrayList<ArrayList<Brikker>> brikker, int brætX, int brætY, int actionPoints1, int actionsPoint2) {
++
++        spillerBrikker.add(new ArrayList<>(brikker.get(0)));
++        spillerBrikker.add(new ArrayList<>(brikker.get(1)));
++        brætKoordinater=new int[brætX][brætY][2];
++        bræt=new Brikker[brætX][brætY];
++        Brikker bold = new Brikker("Bold");
++        actionPoints=new int[]{actionPoints1,actionsPoint2};
++        tur=1;
++        brætÆndring = new PropertyChangeSupport(this);
++        int brikNr=0; //indeksnummer i en given spillers arrayliste af brikker
++        int spillerNr = 0; // Når spillerNr=0 vælges første arrayliste med spillerbrikker
++
++        for (int i=0;i<brætY;i++){
++            for (int j=0;j<brætX;j++){
++                brætKoordinater[j][i]= new int[]{j,i};
++                bræt[j][i]=null;
++                try{
++                    if (j==3 && i==3+brikNr) {
++                        bræt[j][i] = spillerBrikker.get(spillerNr).get(brikNr);
++                        spillerNr++;
++                    }
++                    if (j==brætX-4 && i==3+brikNr){
++                        bræt[j][i] = spillerBrikker.get(spillerNr).get(brikNr);
++                        spillerNr--;
++                        brikNr++;
++                    }
++                    if (j==6 && i==3){
++                        bræt[j][i] = bold;
++                    }
++
++                }catch(Exception ignored){}
++            }
++        }
++    }
++
++    public void addPropertyChangeListener(PropertyChangeListener pcl) {
++        this.brætÆndring.addPropertyChangeListener(pcl);
++    }
++
++    public void opdaterValgteFelter(int[] nytValg){
++        BrætTilstand orgValgteFelter = this;
++        this.valgteFelter.add(nytValg);
++        this.brætÆndring.firePropertyChange("ValgteFelter",orgValgteFelter,this);
++    }
++
++    public void opdaterBrætTest(int[] orgPos, int[] nyPos){
++        BrætTilstand orgBræt = this;
++        Brikker brik = bræt[orgPos[0]][orgPos[1]];
++        bræt[orgPos[0]][orgPos[1]]=null;
++        bræt[nyPos[0]][nyPos[1]]=brik;
++        this.brætÆndring.firePropertyChange("bræt",orgBræt , this);
++
++    }
++}
++
++/*
++    public void printTest(){
++        for (int i=0; i<bræt[1].length;i++){
++            for (int j=0; j<bræt.length;j++){
++                if (bræt[j][i]==null){
++                    System.out.print(Arrays.toString(brætKoordinater[j][i]));
++                } else {
++                    System.out.print("[ "+bræt[j][i].navn+" ]");
++                }
++            }
++            System.out.println(" ");
++        }
++    }
++
++     */
++
++
++    /*
++    public static void flytSpilObj(SpilObjekt obj, Felt felt) {
++        obj.fjern();
++        obj.set(felt);
++    }
++
++    public static void vælgFelt(int x, int y) {
++        Felt felt = bræt[x][y];
++        if (Handler.getAktivBrik() == null) {
++            for (Brik b : aktivSpiller.getSpillerBrikker()) {
++                if (b.getObjPos() == felt) {
++                    Handler.setAktivBrik(b);
++                    return;
++                }
++            }
++        } else if (felt == Handler.getAktivBrik().getObjPos()) {
++            Handler.setAktivBrik(null);
++        } else if (getGrænseFelter(Handler.getEndeFelt()).contains(felt)) {
++            Handler.addToQueue(felt);
++        }
++    }
++
++    public static ArrayList<Felt> getGrænseFelter(Felt orgFelt) {
++        ArrayList<Felt> grænseListe = new ArrayList<>();
++        Felt[][] grænseFelter = new Felt[3][3];
++        int y = -1;
++        int x = -1;
++        for (int i = 0; i < 3; i++) {
++            for (int j = 0; j < 3; j++) {
++                try {
++                    grænseFelter[j][i] = bræt[orgFelt.getX() + x][orgFelt.getY() + y];
++                } catch (Exception ignored) {
++                }
++                x++;
++            }
++            x = -1;
++            y++;
++        }
++        for (Felt[] array : grænseFelter) {
++            grænseListe.addAll(Arrays.asList(array));
++        }
++        return grænseListe;
++    }
++
++    public static ArrayList<Felt> getTommeGrænseFelter(Felt felt) {
++        ArrayList<Felt> tommeFelter = new ArrayList<>();
++        for (Felt tFelt : getGrænseFelter(felt)) {
++            if (tFelt.isTomt()) {
++                tommeFelter.add(tFelt);
++            }
++        }
++        return tommeFelter;
++    }
++    public static void flytBrik(Brik brik, Felt felt) {
++        if (brik.getBrikPos() == felt.getPos()) {
++            System.out.println(" ");
++            System.out.println("Brik står allerede på dette felt");
++            System.out.println(" ");
++            clearValg();
++            return;
++        }
++        int[] dir;
++        if (brik == valgteBrik && valgteFelter.size() > 1) {
++            dir = getDirection(valgteFelter.get(valgteFelter.size() - 2), felt);
++        } else {
++            dir = getDirection(bræt[brik.getBrikPos()[0]][brik.getBrikPos()[1]], felt);
++        }
++        if (!felt.getFeltTomt()) {
++            Brik tBrik = felt.getBrikPåFelt();
++            if (!brikQueue.contains(brik)) {
++                brikQueue.add(brik);
++            }
++            brikQueue.add(tBrik);
++            Felt nyFelt;
++            try {
++                nyFelt = bræt[felt.getPos()[0] + dir[0]][felt.getPos()[1] + dir[1]];
++                flytBrik(tBrik, nyFelt);
++            } catch (Exception e) {
++                tBrik.væltBrik();
++                fjernBrik(valgteBrik.getBrikPos()[0], valgteBrik.getBrikPos()[1]);
++                try {
++                    setBrik(valgteBrik, valgteFelter.get(valgteFelter.size() - 2).getPos()[0], valgteFelter.get(valgteFelter.size() - 2).getPos()[1]);
++                } catch (Exception o) {
++                    setBrik(getValgteBrik(), getValgteBrik().getBrikPos()[0], getValgteBrik().getBrikPos()[1]);
++                }
++            }
++        } else {
++            Felt lastFelt = bræt[brik.getBrikPos()[0]][brik.getBrikPos()[1]];
++            fjernBrik(brik.getBrikPos()[0], brik.getBrikPos()[1]);
++            setBrik(brik, felt.getPos()[0], felt.getPos()[1]);
++            try {
++                brikQueue.removeLast();
++                Brik qBrik = brikQueue.getLast();
++                flytBrik(qBrik, lastFelt);
++            } catch (Exception ignored) {
++            }
++        }
++        clearValg();
++    }
++     */
+\ No newline at end of file
+Index: src/main/java/com/example/board/Actions.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/board/Actions.java b/src/main/java/com/example/board/Actions.java
+new file mode 100644
+--- /dev/null	(date 1733397395072)
++++ b/src/main/java/com/example/board/Actions.java	(date 1733397395072)
+@@ -0,0 +1,104 @@
++package com.example.board;
++
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.Objects;
++
++public interface Actions {
++
++    default ArrayList<int[]> getBevægelse(ArrayList<int[]> brikBevægelse, BrætTilstand bræt){
++        ArrayList<int[]> bevægelse = brikBevægelse;
++
++        for (int[] bevægelsesFelt: brikBevægelse){
++            if (bræt.bræt[bevægelsesFelt[0]][bevægelsesFelt[1]]==null)continue;
++            bevægelse.remove(bevægelsesFelt);
++        }
++        return bevægelse;
++    }
++    default void takling(int[] startFelt, int[] slutFelt, int[]retning, Brikker aktivBrik, Brikker reaktivBrik, BrætTilstand bræt){
++
++        int[] tjekFelt = new int[]{slutFelt[0]+retning[0],slutFelt[1]+retning[1]};
++        ArrayList<int[]> flytteKø = new ArrayList<>();
++        int[] taklerFraPos = new int[]{slutFelt[0]-retning[0],slutFelt[1]-retning[1]};
++        flytteKø.add(taklerFraPos);
++        flytteKø.add(slutFelt);
++        try {
++            do {
++                if (Objects.equals(bræt.bræt[tjekFelt[0]][tjekFelt[1]].navn, "Bold")) {
++                    bræt.bræt[tjekFelt[0]][tjekFelt[1]].flytBold(tjekFelt,bræt);
++                    break;
++                } else {
++                    flytteKø.add(tjekFelt);
++                }
++                tjekFelt[0] += retning[0];
++                tjekFelt[1] += retning[1];
++            } while (!(bræt.bræt[tjekFelt[0]][tjekFelt[1]] == null));
++
++            for (int[] brikPos : flytteKø.reversed()) {
++                Brikker flytteBrik = bræt.bræt[brikPos[0]][brikPos[1]];
++                bræt.bræt[brikPos[0]][brikPos[1]] = null;
++                bræt.bræt[brikPos[0] + retning[0]][brikPos[1] + retning[1]] = flytteBrik;
++            }
++
++            if (!(reaktivBrik.klæbeHænder ==0)){
++                reaktivBrik.harBold=false;
++                flytBold(slutFelt,bræt);
++            }
++
++        } catch (Exception e){
++            bræt.bræt[flytteKø.getLast()[0]][flytteKø.getLast()[1]].væltet=true;
++            flytteKø.removeLast();
++            for (int[] brikPos : flytteKø.reversed()) {
++                Brikker flytteBrik = bræt.bræt[brikPos[0]][brikPos[1]];
++                bræt.bræt[brikPos[0]][brikPos[1]] = null;
++                bræt.bræt[brikPos[0] + retning[0]][brikPos[1] + retning[1]] = flytteBrik;
++            }
++        }
++        bræt.bræt[startFelt[0]][startFelt[1]]=null;
++        bræt.bræt[slutFelt[0]][slutFelt[1]]=aktivBrik;
++
++    }
++
++    default void flytBold(int[] orgPos, BrætTilstand bræt){
++        ArrayList<int[]> muligePos = new ArrayList<>();
++        ArrayList<int[]> exceptionPos = new ArrayList<>();
++
++        int x=-1;
++        int y=-1;
++
++        for (int i=0; i<3;i++){
++            for (int j=0; j<3;j++) {
++                try {
++                    int[] tomPos= new int[]{orgPos[0]+x,orgPos[1]+y};
++                    muligePos.add(tomPos);
++                    exceptionPos.add(tomPos);
++                    x++;
++                } catch (Exception ignored) {}
++            }
++            y++;
++        }
++
++        try {
++            for (int[] tommePos: muligePos){
++                if (!(bræt.bræt[tommePos[0]][tommePos[1]] ==null)){
++                    muligePos.remove(tommePos);
++                }
++                if (tommePos==orgPos) {
++                    muligePos.remove(tommePos);
++                }
++            }
++            Collections.shuffle(muligePos);
++            int[] landePos = muligePos.getLast();
++            Brikker bold = bræt.bræt[orgPos[1]][orgPos[2]];
++            bræt.bræt[orgPos[0]][orgPos[1]] = null;
++            bræt.bræt[landePos[0]][landePos[1]] = bold;
++        } catch (Exception e){
++            //Hvad der sker hvis der ikke er nogen tomme felter til bolden
++            Collections.shuffle(exceptionPos);
++            int[] landePos = exceptionPos.getLast();
++            bræt.bræt[orgPos[0]][orgPos[1]] = null;
++            bræt.bræt[landePos[0]][landePos[1]].harBold=true;
++        }
++
++    }
++}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"bf66fc8e-a753-4e15-94a8-9bfa616aac09\" name=\"Changes\" comment=\"a\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"master\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2okLS0wMdOuP5GdFqr9oDzJa09b\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.Main.executor\": \"Run\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"Ver-0.2(Nyeste)\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/jeppe/Desktop/RUC/SeizeTheZone\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"bf66fc8e-a753-4e15-94a8-9bfa616aac09\" name=\"Changes\" comment=\"\" />\r\n      <created>1731408622949</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1731408622949</updated>\r\n      <workItem from=\"1731408624009\" duration=\"18000\" />\r\n      <workItem from=\"1731408661717\" duration=\"197000\" />\r\n      <workItem from=\"1731408868462\" duration=\"234000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"a\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731408921001</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731408921001</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"a\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731408965664</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731408965664</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"a\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1731409076475</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1731409076475</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"a\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"a\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 91360ea5496699efdeb2e2615a782847a16f59e4)
++++ b/.idea/workspace.xml	(date 1733420701059)
+@@ -4,11 +4,67 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a" />
++    <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a">
++      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/BlåLM.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/BlåQB.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/BlåRB.PNG" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/BlåWR.PNG" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/Bold.PNG" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/RødLM.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/RødQB.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/RødRB.PNG" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/RødWR.PNG" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/SpillerBold.PNG" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/ValgtSpiller.PNG" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/STZBilleder/Væltet.PNG" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Brikker.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/QuarterBack.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/BasicPiece.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/Bold.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/Brik.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/BruntFelt.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/GrøntFelt.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/GrøntFelt.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/HighlightedPiece.png" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/HighlightedTile.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/HighlightedTile.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/HvidtFelt.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/HvidtFelt.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/MålFelt.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/MålFelt.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Sprites/MørkeGrøntFelt.png" beforeDir="false" afterPath="$PROJECT_DIR$/STZBilleder/MørkeGrøntFelt.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/interface/Main.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Bold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Bold.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Brik.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Bræt.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Felt.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Handler.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/HelloApplication.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/HelloController.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/SpilObjekt.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Bold.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Bold.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/HelloApplication.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/HelloController.class" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/module-info.class" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="Interface" />
++        <option value="Class" />
++      </list>
++    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+@@ -22,23 +78,52 @@
+   &quot;associatedIndex&quot;: 0
+ }</component>
+   <component name="ProjectId" id="2okLS0wMdOuP5GdFqr9oDzJa09b" />
++  <component name="ProjectLevelVcsManager">
++    <ConfirmationsSetting value="2" id="Add" />
++  </component>
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
++    "ASKED_ADD_EXTERNAL_FILES": "true",
+     "Application.Main.executor": "Run",
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "git-widget-placeholder": "Ver-0.2(Nyeste)",
+     "ignore.virus.scanning.warn.message": "true",
+     "kotlin-language-version-configured": "true",
+     "last_opened_file_path": "C:/Users/jeppe/Desktop/RUC/SeizeTheZone",
++    "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.0",
++    "project.structure.side.proportion": "0.2",
+     "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
++  <component name="RecentsManager">
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\Users\jeppe\Desktop\RUC\SeizeTheZone" />
++    </key>
++  </component>
++  <component name="RunManager">
++    <configuration default="true" type="JetRunConfigurationType">
++      <module name="bræt" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
++      <module name="bræt" />
++      <option name="filePath" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++  </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+@@ -82,6 +167,7 @@
+     <option name="version" value="3" />
+   </component>
+   <component name="VcsManagerConfiguration">
++    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+     <MESSAGE value="a" />
+     <option name="LAST_COMMIT_MESSAGE" value="a" />
+   </component>
