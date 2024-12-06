@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Stack;
 
 public class Grafik implements PropertyChangeListener{
 
@@ -27,32 +28,13 @@ public class Grafik implements PropertyChangeListener{
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (Objects.equals(evt.getPropertyName(), "ValgteFelter")){
-            opdaterInputGrafik((BrætTilstand) evt.getNewValue());
-        } else {
-            //opdaterBrikGrafik((BrætTilstand) evt.getNewValue());
-            sætGrafik((BrætTilstand) evt.getNewValue());
-        }
-    }
-
-    void opdaterInputGrafik(BrætTilstand brætTilstand){
-        ArrayList<int[]> valgteFelter = brætTilstand.valgteFelter;
-        int [][][] brætKoordinater = brætTilstand.brætKoordinater;
-        Image image;
-        for (int[] felter: valgteFelter){
-            if (brætKoordinater[felter[0]][felter[1]] == valgteFelter.getFirst()) {
-                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\ValgtSpiller.png");
-                gC.drawImage(image,felter[0]*feltStørrelse,felter[1]*feltStørrelse, feltStørrelse, feltStørrelse);
-            } else {
-                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\HighlightedTile.png");
-                gC.drawImage(image,felter[0]*feltStørrelse,felter[1]*feltStørrelse, feltStørrelse, feltStørrelse);
-            }
-        }
+        sætGrafik((BrætTilstand) evt.getNewValue());
     }
 
     void sætGrafik(BrætTilstand brætTilstand){
-        ArrayList<ArrayList<Brikker>> spillerBrikker = brætTilstand.spillerBrikker;
         Brikker[][] brikPositioner = brætTilstand.bræt;
+        ArrayList<ArrayList<Brikker>> spillerBrikker = brætTilstand.spillerBrikker;
+        int [][][] brætKoordinater = brætTilstand.brætKoordinater;
         for (int i=0; i<brikPositioner[1].length;i++){
             for (int j=0; j<brikPositioner.length;j++){
                 String feltBillede;
@@ -66,16 +48,27 @@ public class Grafik implements PropertyChangeListener{
                     feltBillede = "MørkeGrøn";
                 }
                 feltGrafik(feltBillede,j*feltStørrelse,i*feltStørrelse);
-                if (brikPositioner[j][i]==null){
-                    continue;
-                }
+
+                try {
+                    if (brætTilstand.valgteFelter.contains(brætKoordinater[j][i])) {
+                        Image image;
+                        if (brætKoordinater[j][i] == brætTilstand.valgteFelter.getFirst()) {
+                            image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\ValgtSpiller.png");
+                            gC.drawImage(image, j * feltStørrelse, i * feltStørrelse, feltStørrelse, feltStørrelse);
+                        } else {
+                            image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\HighlightedTile.png");
+                            gC.drawImage(image, j * feltStørrelse, i * feltStørrelse, feltStørrelse, feltStørrelse);
+                        }
+                    }
+                } catch (Exception ignored){}
+
+                if (brikPositioner[j][i]==null)continue;
+
                 String brikBillede;
                 if (Objects.equals(brikPositioner[j][i].navn, "Bold")) {
                     brikBillede = "Bold";
                     brikGrafik(brikBillede, "N/A", "N/A", j * feltStørrelse, i * feltStørrelse);
-                    continue;
                 }
-
                 brikBillede = brikPositioner[j][i].navn;
                 String holdFarve;
                 if (spillerBrikker.getLast().contains(brikPositioner[j][i])) {
@@ -94,7 +87,6 @@ public class Grafik implements PropertyChangeListener{
                 brikGrafik(brikBillede, holdFarve, brikStatus, j * feltStørrelse, i * feltStørrelse);
             }
         }
-
     }
 
     void feltGrafik(String feltType, int x, int y){

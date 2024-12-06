@@ -2,8 +2,8 @@ package com.example.board;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.beans.PropertyChangeSupport;
+import java.util.Stack;
 
 public class BrætTilstand {
     //Spiller variabler
@@ -16,7 +16,7 @@ public class BrætTilstand {
     final int [][][] brætKoordinater;
     int tur;
     //Input variabler
-    ArrayList<int[]> valgteFelter = new ArrayList<>();
+    Stack<int[]> valgteFelter = new Stack<>();
     //PropertyChange
     private PropertyChangeSupport brætÆndring = new PropertyChangeSupport(this);
 
@@ -33,8 +33,9 @@ public class BrætTilstand {
 
         for (int i=0;i<brætY;i++){
             for (int j=0;j<brætX;j++){
-                this.brætKoordinater[j][i]= new int[]{j,i};
                 this.bræt[j][i]=null;
+                this.brætKoordinater[j][i]= new int[]{j,i};
+
                 try{
                     if (j==3 && i==3+brikNr) {
                         this.bræt[j][i] = this.spillerBrikker.get(spillerNr).get(brikNr);
@@ -60,13 +61,10 @@ public class BrætTilstand {
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         this.brætÆndring.addPropertyChangeListener(pcl);
     }
-
-    public void opdaterValgteFelter(int[] nytValg){
+    public void opdaterValgteFelter(){
         BrætTilstand orgValgteFelter = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
-        this.valgteFelter.add(nytValg);
         this.brætÆndring.firePropertyChange("ValgteFelter",orgValgteFelter,this);
     }
-
     public void opdaterBrætTest(int[] orgPos, int[] nyPos){
         BrætTilstand orgBræt = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
         Brikker brik = this.bræt[orgPos[0]][orgPos[1]];
