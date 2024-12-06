@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Grafik implements PropertyChangeListener{
@@ -29,71 +30,28 @@ public class Grafik implements PropertyChangeListener{
         if (Objects.equals(evt.getPropertyName(), "ValgteFelter")){
             opdaterInputGrafik((BrætTilstand) evt.getNewValue());
         } else {
-            opdaterBrikGrafik((BrætTilstand) evt.getNewValue());
+            //opdaterBrikGrafik((BrætTilstand) evt.getNewValue());
+            sætGrafik((BrætTilstand) evt.getNewValue());
         }
     }
 
     void opdaterInputGrafik(BrætTilstand brætTilstand){
         ArrayList<int[]> valgteFelter = brætTilstand.valgteFelter;
         int [][][] brætKoordinater = brætTilstand.brætKoordinater;
-        String valg;
         Image image;
         for (int[] felter: valgteFelter){
             if (brætKoordinater[felter[0]][felter[1]] == valgteFelter.getFirst()) {
-                valg = "Brik";
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\ValgtSpiller.png");
+                gC.drawImage(image,felter[0]*feltStørrelse,felter[1]*feltStørrelse, feltStørrelse, feltStørrelse);
             } else {
-                valg = "Felt";
+                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\HighlightedTile.png");
+                gC.drawImage(image,felter[0]*feltStørrelse,felter[1]*feltStørrelse, feltStørrelse, feltStørrelse);
             }
-            switch (valg) {
-                case "Felt":
-                    image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\HighlightedTile.png");
-                    gC.drawImage(image,felter[0],felter[1], feltStørrelse, feltStørrelse);
-                    break;
-                case "Brik":
-                    image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\ValgtSpiller.png");
-                    gC.drawImage(image,felter[0],felter[1], feltStørrelse, feltStørrelse);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
-
-    void opdaterBrikGrafik(BrætTilstand brætTilstand){
-        ArrayList<int[]> brikKoordinater = brætTilstand.brikKoordinater;
-        Brikker[][] brikPositioner = brætTilstand.bræt;
-        ArrayList<ArrayList<Brikker>> spillerBrikker = brætTilstand.spillerBrikker;
-        String brikBillede;
-        for (int[] pos: brikKoordinater){
-            if (Objects.equals(brikPositioner[pos[0]][pos[1]].navn, "Bold")) {
-                brikBillede = "Bold";
-                brikGrafik(brikBillede,"N/A","N/A",pos[0]*feltStørrelse,pos[1]*feltStørrelse);
-                continue;
-            } else {
-                brikBillede = brikPositioner[pos[0]][pos[1]].navn;
-            }
-
-            String holdFarve;
-            if (spillerBrikker.getLast().contains(brikPositioner[pos[0]][pos[1]])){
-                holdFarve = "Blå";
-            }
-            else {
-                holdFarve = "Rød";
-            }
-            String brikStatus;
-            if (brikPositioner[pos[0]][pos[1]].væltet){
-                brikStatus = "Væltet";
-            }
-            else if (brikPositioner[pos[0]][pos[1]].harBold){
-                brikStatus = "HarBold";
-            } else {
-                brikStatus = "N/A";
-            }
-            brikGrafik(brikBillede,holdFarve,brikStatus,pos[0]*feltStørrelse,pos[1]*feltStørrelse);
         }
     }
 
     void sætGrafik(BrætTilstand brætTilstand){
+        ArrayList<ArrayList<Brikker>> spillerBrikker = brætTilstand.spillerBrikker;
         Brikker[][] brikPositioner = brætTilstand.bræt;
         for (int i=0; i<brikPositioner[1].length;i++){
             for (int j=0; j<brikPositioner.length;j++){
@@ -111,8 +69,29 @@ public class Grafik implements PropertyChangeListener{
                 if (brikPositioner[j][i]==null){
                     continue;
                 }
+                String brikBillede;
+                if (Objects.equals(brikPositioner[j][i].navn, "Bold")) {
+                    brikBillede = "Bold";
+                    brikGrafik(brikBillede, "N/A", "N/A", j * feltStørrelse, i * feltStørrelse);
+                    continue;
+                }
 
-                opdaterBrikGrafik(brætTilstand);
+                brikBillede = brikPositioner[j][i].navn;
+                String holdFarve;
+                if (spillerBrikker.getLast().contains(brikPositioner[j][i])) {
+                    holdFarve = "Blå";
+                } else {
+                    holdFarve = "Rød";
+                }
+                String brikStatus;
+                if (brikPositioner[j][i].væltet) {
+                    brikStatus = "Væltet";
+                } else if (brikPositioner[j][i].harBold) {
+                    brikStatus = "HarBold";
+                } else {
+                    brikStatus = "N/A";
+                }
+                brikGrafik(brikBillede, holdFarve, brikStatus, j * feltStørrelse, i * feltStørrelse);
             }
         }
 

@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a">
-      <change afterPath="$PROJECT_DIR$/STZBilleder/GrøntFelt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/STZBilleder/HighlightedTile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/STZBilleder/HvidtFelt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/STZBilleder/MålFelt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/STZBilleder/MørkeGrøntFelt.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/BrætTilstand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/BrætTilstand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +83,7 @@
       <workItem from="1731408624009" duration="18000" />
       <workItem from="1731408661717" duration="197000" />
       <workItem from="1731408868462" duration="234000" />
-      <workItem from="1733476902800" duration="6221000" />
+      <workItem from="1733476902800" duration="12775000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <option name="closed" value="true" />
@@ -118,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733422114440</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="a">
+      <option name="closed" value="true" />
+      <created>1733483880711</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733483880711</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
