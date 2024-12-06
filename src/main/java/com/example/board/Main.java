@@ -120,6 +120,7 @@ public class Main extends Application {
         testBræt.valgteFelter.clear();
         testBræt.opdaterValgteFelter();
         grafik.vindue.getChildren().remove(aktion);
+
     }
     public static void main(String[] args) {
         launch(args);

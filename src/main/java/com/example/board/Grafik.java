@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Stack;
-
 public class Grafik implements PropertyChangeListener{
 
     Canvas canvas;
@@ -53,10 +52,10 @@ public class Grafik implements PropertyChangeListener{
                     if (brætTilstand.valgteFelter.contains(brætKoordinater[j][i])) {
                         Image image;
                         if (brætKoordinater[j][i] == brætTilstand.valgteFelter.getFirst()) {
-                            image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\ValgtSpiller.png");
+                            image = new Image("C:STZBilleder\\ValgtSpiller.png");
                             gC.drawImage(image, j * feltStørrelse, i * feltStørrelse, feltStørrelse, feltStørrelse);
                         } else {
-                            image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\HighlightedTile.png");
+                            image = new Image("C:STZBilleder\\HighlightedTile.png");
                             gC.drawImage(image, j * feltStørrelse, i * feltStørrelse, feltStørrelse, feltStørrelse);
                         }
                     }
@@ -91,9 +90,9 @@ public class Grafik implements PropertyChangeListener{
 
     void feltGrafik(String feltType, int x, int y){
         Image image = switch (feltType) {
-            case "MålFelt" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\MålFelt.png");
-            case "Grøn" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\GrøntFelt.png");
-            case "MørkeGrøn" -> new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\MørkeGrøntFelt.png");
+            case "MålFelt" -> new Image("C:STZBilleder/MålFelt.png");
+            case "Grøn" -> new Image("C:STZBilleder/GrøntFelt.png");
+            case "MørkeGrøn" -> new Image("C:STZBilleder/MørkeGrøntFelt.png");
             default -> null;
         };
         gC.drawImage(image,x,y, feltStørrelse, feltStørrelse);
@@ -102,14 +101,14 @@ public class Grafik implements PropertyChangeListener{
         Image image;
         switch (brikNavn) {
             case "Bold":
-                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\Bold.png");
+                image = new Image("C:STZBilleder/Bold.png");
                 gC.drawImage(image,x,y, feltStørrelse, feltStørrelse);
                 return;
             case "QuarterBack":
-                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\"+holdFarve+"QB.png");
+                image = new Image("C:STZBilleder/"+holdFarve+"QB.png");
                 break;
             case "LineMan":
-                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\"+holdFarve+"LM.png");
+                image = new Image("C:STZBilleder/"+holdFarve+"LM.png");
                 break;
             default:
                 return;
@@ -121,10 +120,10 @@ public class Grafik implements PropertyChangeListener{
         }
         switch (brikStatus) {
             case "Væltet":
-                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\Væltet.png");
+                image = new Image("C:STZBilleder/Væltet.png");
                 break;
             case "HarBold":
-                image = new Image("C:\\Users\\jeppe\\Desktop\\RUC\\SeizeTheZone\\STZBilleder\\SpillerBold.png");
+                image = new Image("C:STZBilleder/SpillerBold.png");
                 break;
             default:
                 return;
