@@ -13,17 +13,17 @@ public class BrætTilstand {
 
     //Bræt variabler
     Brikker[][] bræt;
+    ArrayList<int[]> brikKoordinater = new ArrayList<>();
     final int [][][] brætKoordinater;
     int tur;
 
     //Input variabler
-    ArrayList<int[]> valgteFelter;
+    ArrayList<int[]> valgteFelter = new ArrayList<>();
 
     //PropertyChange
-    private final PropertyChangeSupport brætÆndring;
+    private final PropertyChangeSupport brætÆndring = new PropertyChangeSupport(this);
 
     public BrætTilstand(ArrayList<ArrayList<Brikker>> brikker, int brætX, int brætY, int actionPoints1, int actionsPoint2) {
-
         spillerBrikker.add(new ArrayList<>(brikker.get(0)));
         spillerBrikker.add(new ArrayList<>(brikker.get(1)));
         brætKoordinater=new int[brætX][brætY][2];
@@ -31,7 +31,6 @@ public class BrætTilstand {
         Brikker bold = new Brikker("Bold");
         actionPoints=new int[]{actionPoints1,actionsPoint2};
         tur=1;
-        brætÆndring = new PropertyChangeSupport(this);
         int brikNr=0; //indeksnummer i en given spillers arrayliste af brikker
         int spillerNr = 0; // Når spillerNr=0 vælges første arrayliste med spillerbrikker
 
@@ -42,39 +41,47 @@ public class BrætTilstand {
                 try{
                     if (j==3 && i==3+brikNr) {
                         bræt[j][i] = spillerBrikker.get(spillerNr).get(brikNr);
+                        brikKoordinater.add(new int[]{j,i});
                         spillerNr++;
                     }
                     if (j==brætX-4 && i==3+brikNr){
                         bræt[j][i] = spillerBrikker.get(spillerNr).get(brikNr);
+                        brikKoordinater.add(new int[]{j,i});
                         spillerNr--;
                         brikNr++;
                     }
                     if (j==6 && i==3){
                         bræt[j][i] = bold;
+                        brikKoordinater.add(new int[]{j,i});
                     }
 
                 }catch(Exception ignored){}
             }
         }
+        for (int[] fuk: brikKoordinater){
+            System.out.println(Arrays.toString(fuk));
+        }
     }
 
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
-        this.brætÆndring.addPropertyChangeListener(pcl);
+        brætÆndring.addPropertyChangeListener(pcl);
     }
 
     public void opdaterValgteFelter(int[] nytValg){
-        BrætTilstand orgValgteFelter = this;
+        BrætTilstand orgValgteFelter = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
         this.valgteFelter.add(nytValg);
         this.brætÆndring.firePropertyChange("ValgteFelter",orgValgteFelter,this);
     }
 
     public void opdaterBrætTest(int[] orgPos, int[] nyPos){
-        BrætTilstand orgBræt = this;
+        BrætTilstand orgBræt = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
         Brikker brik = bræt[orgPos[0]][orgPos[1]];
         bræt[orgPos[0]][orgPos[1]]=null;
+        brikKoordinater.remove(orgPos);
         bræt[nyPos[0]][nyPos[1]]=brik;
-        this.brætÆndring.firePropertyChange("bræt",orgBræt , this);
-
+        brikKoordinater.add(nyPos);
+        this.valgteFelter.clear();
+        this.brætÆndring.firePropertyChange("brikker",orgBræt , this);
     }
 }
 
