@@ -3,11 +3,13 @@ package com.example.board;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main extends Application {
     static ArrayList<Brikker> spillerBrikker1 = new ArrayList<>();
@@ -17,7 +19,7 @@ public class Main extends Application {
     Grafik grafik;
     private int ValgtX = -1;
     private int ValgtY = -1;
-    ComboBox<String> aktion = new ComboBox<>();
+    ComboBox<String> aktion;
     @Override
     public void start(Stage primaryStage) {
 
@@ -34,16 +36,9 @@ public class Main extends Application {
         testBræt.addPropertyChangeListener(grafik);
         grafik.sætGrafik(testBræt);
 
-        grafik.vindue.getChildren().add(aktion);
-        aktion.setLayoutX(testBræt.brætKoordinater.length * grafik.feltStørrelse - (3 * grafik.feltStørrelse));
-        aktion.setLayoutY(testBræt.brætKoordinater[0].length * grafik.feltStørrelse + grafik.feltStørrelse/4);
-        aktion.setPrefSize(grafik.feltStørrelse*2, grafik.feltStørrelse/3);
-        aktion.setVisible(false);
-        aktion.getItems().addAll("Move Here", "Cancel");
-        aktion.setOnAction(e -> feldthandler());
         grafik.canvas.setOnMouseClicked(event -> handleMouseClick(event, testBræt));
 
-        Scene scene = new Scene(grafik.vindue, testBræt.brætKoordinater.length * grafik.feltStørrelse, testBræt.brætKoordinater[0].length * grafik.feltStørrelse+grafik.feltStørrelse);
+        Scene scene = new Scene(grafik.vindue, testBræt.brætKoordinater.length * grafik.feltStørrelse, testBræt.brætKoordinater[0].length * grafik.feltStørrelse+(3*grafik.feltStørrelse));
         primaryStage.setTitle("Seize The Zone");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -57,8 +52,15 @@ public class Main extends Application {
                 if (!(testBræt.bræt[X][Y] == null)) {
                     ValgtX = X;
                     ValgtY = Y;
-                    aktion.setValue(null);
+                    aktion  = new ComboBox<>();
+                    aktion.setPromptText("Vælg træk her");
+                    aktion.setLayoutX(testBræt.brætKoordinater.length * grafik.feltStørrelse - (3 * grafik.feltStørrelse));
+                    aktion.setLayoutY(testBræt.brætKoordinater[0].length * grafik.feltStørrelse + grafik.feltStørrelse/4);
+                    aktion.setPrefSize(grafik.feltStørrelse*2, grafik.feltStørrelse/3);
+                    grafik.vindue.getChildren().add(aktion);
                     aktion.setVisible(true);
+                    aktion.getItems().addAll(testBræt.bræt[X][Y].lovligeActions(testBræt.bræt[X][Y]));
+                    aktion.setOnAction(e -> feldthandler());
                     testBræt.opdaterValgteFelter(testBræt.brætKoordinater[X][Y]);
                 }
             } else {
@@ -79,12 +81,20 @@ public class Main extends Application {
             return;
         }
         switch (action) {
-            case "Move Here":
+            case "Bevægelse":
                 int[] sidstefeldt = testBræt.valgteFelter.getLast();
                 int[] startFelt = testBræt.brætKoordinater[ValgtX][ValgtY];
                 testBræt.opdaterBrætTest(startFelt,sidstefeldt);
                 break;
-            case "Cancel":
+            case  "Tackling":
+                break;
+            case "Tag bolden op":
+                break;
+            case "Kast bold":
+                break;
+            case "Rejs spiller":
+                break;
+            case "Fortryd":
                 testBræt.opdaterValgteFelter("clear");
                 break;
             default:

@@ -119,4 +119,26 @@ public interface Actions {
         }
 
     }
+    default ArrayList<String> lovligeActions(Brikker brik) {
+        ArrayList<String> actions = new ArrayList<>();
+        actions.add("Bevægelse");
+        actions.add("Tackling");
+        actions.add("Tag bold op");
+        actions.add("Kast bold");
+        actions.add("Rejs spiller");
+        actions.add("Fortryd");
+        if (brik.harBold){
+            actions.add("Kast Bold");
+        }
+
+        if (brik.brugtBevægelse){
+            actions.remove("Bevægelse");
+        }
+        if (brik.brugtAction && actions.contains("Tackling")){
+            actions.remove("Tackling");
+        }
+        if (brik.brugtAction && actions.contains("Kast Bold")){
+            actions.remove("Kast Bold");
+        } return actions;
+    }
 }

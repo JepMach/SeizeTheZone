@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Stack;
 public class Grafik implements PropertyChangeListener{
@@ -86,9 +87,9 @@ public class Grafik implements PropertyChangeListener{
             feltBillede = "MørkeGrøn";
         }
         return switch (feltBillede) {
-            case "MålFelt" -> new Image("C:STZBilleder/MålFelt.png");
-            case "Grøn" -> new Image("C:STZBilleder/GrøntFelt.png");
-            case "MørkeGrøn" -> new Image("C:STZBilleder/MørkeGrøntFelt.png");
+            case "MålFelt" -> newImage("C:STZBilleder/MålFelt.png");
+            case "Grøn" -> newImage("C:STZBilleder/GrøntFelt.png");
+            case "MørkeGrøn" -> newImage("C:STZBilleder/MørkeGrøntFelt.png");
             default -> null;
         };
     }
@@ -101,9 +102,9 @@ public class Grafik implements PropertyChangeListener{
             holdFarve = "Rød";
         }
         if (Objects.equals(brætTilstand.bræt[x][y].navn, "Bold")) {
-            return new Image("C:STZBilleder/Bold.png");
+            return newImage("C:STZBilleder/Bold.png");
         } else {
-            return new Image("C:STZBilleder/"+holdFarve+brikBillede+".png");
+            return newImage("C:STZBilleder/"+holdFarve+brikBillede+".png");
         }
     }
     private Image getStatusBillede(BrætTilstand brætTilstand, int x, int y){
@@ -116,8 +117,8 @@ public class Grafik implements PropertyChangeListener{
             brikStatus = "N/A";
         }
         return switch (brikStatus) {
-            case "Væltet" -> new Image("C:STZBilleder/Væltet.png");
-            case "HarBold" -> new Image("C:STZBilleder/SpillerBold.png");
+            case "Væltet" -> newImage("C:STZBilleder/Væltet.png");
+            case "HarBold" -> newImage("C:STZBilleder/SpillerBold.png");
             default -> null;
         };
     }
@@ -133,10 +134,19 @@ public class Grafik implements PropertyChangeListener{
             feltFyldt="Brik";
         }
         Image image = switch (feltFyldt) {
-            case "Brik" -> new Image("C:STZBilleder\\ValgtSpiller.png");
-            case "Tomt" -> new Image("C:STZBilleder\\HighlightedTile.png");
+            case "Brik" -> newImage("C:STZBilleder\\ValgtSpiller.png");
+            case "Tomt" -> newImage("C:STZBilleder\\HighlightedTile.png");
             default -> null;
         };
         gC.drawImage(image,x*feltStørrelse,y*feltStørrelse, feltStørrelse, feltStørrelse);
     }
+    HashMap<String,Image> imgMap = new HashMap<>();
+    Image newImage(String s){
+        if(imgMap.containsKey(s)){return imgMap.get(s);}
+        Image img=new Image(s);
+        imgMap.put(s,img);
+        System.out.println("Load "+s);
+        return img;
+    }
+    
 }
