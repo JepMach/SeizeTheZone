@@ -21,10 +21,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        spillerBrikker1.add(new Brikker("QB"));
-        spillerBrikker1.add(new Brikker("LM"));
-        spillerBrikker2.add(new Brikker("QB"));
-        spillerBrikker2.add(new Brikker("LM"));
+        spillerBrikker1.add(new QuarterBack());
+        spillerBrikker1.add(new LineMan());
+        spillerBrikker2.add(new QuarterBack());
+        spillerBrikker2.add(new LineMan());
 
         brætBrikker.add(spillerBrikker1);
         brætBrikker.add(spillerBrikker2);

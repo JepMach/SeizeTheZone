@@ -27,7 +27,7 @@ public class BrætTilstand {
         this.spillerBrikker.add(new ArrayList<>(brikker.get(1)));
         this.brætKoordinater=new int[brætX][brætY][2];
         this.bræt=new Brikker[brætX][brætY];
-        Brikker bold = new Brikker("Bold");
+        Brikker bold = new Bold();
         this.actionPoints=new int[]{actionPoints1,actionsPoint2};
         this.tur=1;
         int brikNr=0; //indeksnummer i en given spillers arrayliste af brikker
@@ -94,21 +94,36 @@ public class BrætTilstand {
 
     public void opdaterBrætTest(int[] orgPos, int[] nyPos){
         BrætTilstand orgBræt = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
-        Brikker brik = this.bræt[orgPos[0]][orgPos[1]];
+
         try {
-            if (Objects.equals(this.bræt[nyPos[0]][nyPos[1]].navn, "Bold")){
-                brik.harBold=true;
-            }
-        } catch (Exception ignored){}
-        this.bræt[orgPos[0]][orgPos[1]]=null;
-        this.bræt[nyPos[0]][nyPos[1]]=brik;
-        this.brikKoordinater.remove(this.brætKoordinater[orgPos[0]][orgPos[1]]);
-        this.brikKoordinater.add(this.brætKoordinater[nyPos[0]][nyPos[1]]);
+        Brikker brik = this.bræt[nyPos[0]][nyPos[1]];
+        brik.takling(orgPos,nyPos,getDirection(this.valgteFelter.get(this.valgteFelter.size()-2),nyPos),brik,this);
+            System.out.println("Wah1");
+        } catch (Exception e) {
+            Brikker brik = this.bræt[orgPos[0]][orgPos[1]];
+            try {
+                if (Objects.equals(this.bræt[nyPos[0]][nyPos[1]].navn, "Bold")){
+                    brik.harBold=true;
+                }
+            }catch (Exception ignored){}
+            this.bræt[orgPos[0]][orgPos[1]] = null;
+            this.bræt[nyPos[0]][nyPos[1]] = brik;
+            this.brikKoordinater.remove(this.brætKoordinater[orgPos[0]][orgPos[1]]);
+            this.brikKoordinater.add(this.brætKoordinater[nyPos[0]][nyPos[1]]);
+        }
         orgBræt.valgteFelter.addAll(this.valgteFelter);
         this.valgteFelter.clear();
         this.brætÆndring.firePropertyChange("FlytBrikker", orgBræt, this);
-
     }
+
+
+    int[] getDirection(int[] fra, int[] til){
+        int Y,X;
+        Y= Integer.compare(til[0], fra[0]);
+        X= Integer.compare(til[1], fra[1]);
+        return new int[]{Y,X};
+    }
+
 }
 
 /*

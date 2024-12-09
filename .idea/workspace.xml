@@ -5,26 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/board/LineMan.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Bold.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Bold.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Brikker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Brikker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/BasicPiece.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/Bold.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/Brik.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/BruntFelt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/GrøntFelt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HighlightedPiece.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HighlightedTile.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HvidtFelt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/MålFelt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/MørkeGrøntFelt.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Brik.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Bræt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/QuarterBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/QuarterBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Brikker.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Brikker.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/BrætTilstand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/BrætTilstand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Felt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Grafik.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/SpilObjekt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/QuarterBack.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/QuarterBack.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +104,7 @@
       <workItem from="1731408661717" duration="197000" />
       <workItem from="1731408868462" duration="234000" />
       <workItem from="1733476902800" duration="20126000" />
-      <workItem from="1733679185413" duration="15068000" />
+      <workItem from="1733679185413" duration="21724000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <option name="closed" value="true" />
@@ -185,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733704835877</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="a">
+      <option name="closed" value="true" />
+      <created>1733715472154</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733715472154</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

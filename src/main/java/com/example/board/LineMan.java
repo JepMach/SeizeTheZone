@@ -2,11 +2,11 @@ package com.example.board;
 
 import java.util.ArrayList;
 
-public class QuarterBack extends Brikker {
+public class LineMan extends Brikker {
 
-    public QuarterBack(){
-        navn="QB";
-        klæbeHænder= 1;
+    public LineMan(){
+        navn="LM";
+        standhaftig= 1;
 
     }
     @Override
