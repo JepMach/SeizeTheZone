@@ -17,67 +17,53 @@ public interface Actions {
     }
     default void takling(int[] startFelt, int[] slutFelt, int[]retning, /*Brikker aktivBrik,*/ Brikker reaktivBrik, BrætTilstand bræt){
         ArrayList<int[]> flytteKø = new ArrayList<>();
-        int[] taklerFraPos = new int[]{slutFelt[0]-retning[0],slutFelt[1]-retning[1]};
+        int[] taklerFraPos = bræt.brætKoordinater[slutFelt[0]-retning[0]][slutFelt[1]-retning[1]];
+        int[] taklerTilPos = bræt.brætKoordinater[slutFelt[0]][slutFelt[1]];
         flytteKø.add(taklerFraPos);
-        flytteKø.add(slutFelt);
+        flytteKø.add(taklerTilPos);
 
         try {
-            int[] tjekFelt = new int[]{slutFelt[0]+retning[0],slutFelt[1]+retning[1]};
+            int[] tjekFelt = bræt.brætKoordinater[slutFelt[0]+retning[0]][slutFelt[1]+retning[1]];
             do {
-                    if (Objects.equals(bræt.bræt[tjekFelt[0]][tjekFelt[1]].navn, "Bold")) {
-                        bræt.bræt[tjekFelt[0]][tjekFelt[1]].flytBold(tjekFelt,bræt);
-                        break;
-                    }
                 flytteKø.add(tjekFelt);
                 tjekFelt[0] += retning[0];
                 tjekFelt[1] += retning[1];
-            } while (!(bræt.bræt[tjekFelt[0]][tjekFelt[1]] == null));
-
-            for (int[] brikPos : flytteKø.reversed()) {
-                Brikker flytteBrik = bræt.bræt[brikPos[0]][brikPos[1]];
-                bræt.bræt[brikPos[0]][brikPos[1]] = null;
-                bræt.bræt[brikPos[0] + retning[0]][brikPos[1] + retning[1]] = flytteBrik;
-                bræt.brikKoordinater.remove(bræt.brætKoordinater[brikPos[0]][brikPos[1]]);
-                bræt.brikKoordinater.add(bræt.brætKoordinater[brikPos[0] + retning[0]][brikPos[1] + retning[1]]);
-            }
-            bræt.bræt[startFelt[0]][startFelt[1]]=null;
-            if (!(reaktivBrik.klæbeHænder ==0)){
-                reaktivBrik.harBold=false;
-                flytBold(slutFelt,bræt);
-            }
-            for (int[] fuk: flytteKø){
-                System.out.println(Arrays.toString(fuk));
-                System.out.print(fuk[0] + retning[0]+", "+(fuk[1] + retning[1]));
-                System.out.println(" ");
-                try {
-                    System.out.println(bræt.bræt[fuk[0]][fuk[1]].navn);
-                } catch (Exception b){
-                    System.out.println("fuk");
-                }
-            }
-            System.out.println("Wah4");
-
+            } while (!(bræt.bræt[tjekFelt[0]][tjekFelt[1]] == null || !Objects.equals(bræt.bræt[tjekFelt[0]][tjekFelt[1]].navn, "Bold")));
         } catch (Exception e){
-            for (int[] fuk: flytteKø){
-                System.out.println(Arrays.toString(fuk));
-                System.out.print(fuk[0] + retning[0]+", "+(fuk[1] + retning[1]));
-                System.out.println(" ");
-                try {
-                    System.out.println(bræt.bræt[fuk[0]][fuk[1]].navn);
-                } catch (Exception b){
-                    System.out.println("fuk");
-                }
-            }
+            System.out.println("WHY CUNT?");
             bræt.bræt[flytteKø.getLast()[0]][flytteKø.getLast()[1]].væltet=true;
-            for (int[] brikPos : flytteKø.reversed()) {
-                Brikker flytteBrik = bræt.bræt[brikPos[0]][brikPos[1]];
-                bræt.bræt[brikPos[0]][brikPos[1]] = null;
-                bræt.bræt[brikPos[0] + retning[0]][brikPos[1] + retning[1]] = flytteBrik;
-                bræt.brikKoordinater.remove(bræt.brætKoordinater[brikPos[0]][brikPos[1]]);
-                bræt.brikKoordinater.add(bræt.brætKoordinater[brikPos[0] + retning[0]][brikPos[1] + retning[1]]);
+            return;
+        }
+        try {
+            if (Objects.equals(bræt.bræt[flytteKø.getLast()[0]][flytteKø.getLast()[1]].navn, "Bold")){
+                flytBold(bræt.brætKoordinater[flytteKø.getLast()[0]][flytteKø.getLast()[1]],bræt);
+            }
+        } catch (Exception ignored){}
+
+        for (int[] brikPos : flytteKø.reversed()) {
+            Brikker flytteBrik = bræt.bræt[brikPos[0]][brikPos[1]];
+            bræt.bræt[brikPos[0]][brikPos[1]] = null;
+            bræt.bræt[brikPos[0] + retning[0]][brikPos[1] + retning[1]] = flytteBrik;
+            bræt.brikKoordinater.remove(bræt.brætKoordinater[brikPos[0]][brikPos[1]]);
+            bræt.brikKoordinater.add(bræt.brætKoordinater[brikPos[0] + retning[0]][brikPos[1] + retning[1]]);
+        }
+        if (reaktivBrik.klæbeHænder==0){
+            reaktivBrik.harBold=false;
+            flytBold(slutFelt,bræt);
+        }
+        bræt.bræt[startFelt[0]][startFelt[1]]=null;
+        bræt.brikKoordinater.remove(bræt.brætKoordinater[startFelt[0]][startFelt[1]]);
+
+        for (int[] fuk: flytteKø){
+            System.out.println(Arrays.toString(fuk));
+            System.out.print(fuk[0] + retning[0]+", "+(fuk[1] + retning[1]));
+            System.out.println(" ");
+            try {
+                System.out.println(bræt.bræt[fuk[0]][fuk[1]].navn);
+            } catch (Exception b){
+                System.out.println("fuk");
             }
         }
-
     }
 
     default void flytBold(int[] orgPos, BrætTilstand bræt){
@@ -117,7 +103,6 @@ public interface Actions {
             bræt.bræt[orgPos[0]][orgPos[1]] = null;
             bræt.bræt[landePos[0]][landePos[1]].harBold=true;
         }
-
     }
     default ArrayList<String> lovligeActions(Brikker brik) {
         ArrayList<String> actions = new ArrayList<>();

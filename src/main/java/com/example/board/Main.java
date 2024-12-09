@@ -82,11 +82,11 @@ public class Main extends Application {
         }
         switch (action) {
             case "Bevægelse":
+                break;
+            case  "Tackling":
                 int[] sidstefeldt = testBræt.valgteFelter.getLast();
                 int[] startFelt = testBræt.brætKoordinater[ValgtX][ValgtY];
                 testBræt.opdaterBrætTest(startFelt,sidstefeldt);
-                break;
-            case  "Tackling":
                 break;
             case "Tag bolden op":
                 break;

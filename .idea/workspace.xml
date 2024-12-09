@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Actions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Actions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Actions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/BrætTilstand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/BrætTilstand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +98,7 @@
       <workItem from="1731408661717" duration="197000" />
       <workItem from="1731408868462" duration="234000" />
       <workItem from="1733476902800" duration="20126000" />
-      <workItem from="1733679185413" duration="32766000" />
+      <workItem from="1733679185413" duration="35578000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <option name="closed" value="true" />
@@ -199,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733756951893</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="a">
+      <option name="closed" value="true" />
+      <created>1733761330580</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1733761330580</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

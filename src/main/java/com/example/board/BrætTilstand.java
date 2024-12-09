@@ -94,23 +94,8 @@ public class BrætTilstand {
 
     public void opdaterBrætTest(int[] orgPos, int[] nyPos){
         BrætTilstand orgBræt = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
-
-        try {
         Brikker brik = this.bræt[nyPos[0]][nyPos[1]];
         brik.takling(orgPos,nyPos,getDirection(this.valgteFelter.get(this.valgteFelter.size()-2),nyPos),brik,this);
-            System.out.println("Wah1");
-        } catch (Exception e) {
-            Brikker brik = this.bræt[orgPos[0]][orgPos[1]];
-            try {
-                if (Objects.equals(this.bræt[nyPos[0]][nyPos[1]].navn, "Bold")){
-                    brik.harBold=true;
-                }
-            }catch (Exception ignored){}
-            this.bræt[orgPos[0]][orgPos[1]] = null;
-            this.bræt[nyPos[0]][nyPos[1]] = brik;
-            this.brikKoordinater.remove(this.brætKoordinater[orgPos[0]][orgPos[1]]);
-            this.brikKoordinater.add(this.brætKoordinater[nyPos[0]][nyPos[1]]);
-        }
         orgBræt.valgteFelter.addAll(this.valgteFelter);
         this.valgteFelter.clear();
         this.brætÆndring.firePropertyChange("FlytBrikker", orgBræt, this);
