@@ -122,6 +122,7 @@ public class Grafik implements PropertyChangeListener{
             default -> null;
         };
     }
+
     void getValgteGrafik(BrætTilstand brætTilstand, int x, int y){
         getBasicGrafik(brætTilstand,x,y);
         if (!brætTilstand.valgteFelter.contains(brætTilstand.brætKoordinater[x][y])){
