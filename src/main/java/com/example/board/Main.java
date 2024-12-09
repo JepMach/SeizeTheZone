@@ -33,10 +33,17 @@ public class Main extends Application {
         grafik = new Grafik(testBræt, 60);
         testBræt.addPropertyChangeListener(grafik);
         grafik.sætGrafik(testBræt);
-        grafik.vindue.setOnMouseClicked(event -> handleMouseClick(event, testBræt));
+
+        grafik.vindue.getChildren().add(aktion);
+        aktion.setLayoutX(testBræt.brætKoordinater.length * grafik.feltStørrelse - (3 * grafik.feltStørrelse));
+        aktion.setLayoutY(testBræt.brætKoordinater[0].length * grafik.feltStørrelse + grafik.feltStørrelse/4);
+        aktion.setPrefSize(grafik.feltStørrelse*2, grafik.feltStørrelse/2);
+        aktion.setVisible(false);
         aktion.getItems().addAll("Move Here", "Cancel");
         aktion.setOnAction(e -> feldthandler());
-        Scene scene = new Scene(grafik.vindue, 18 * grafik.feltStørrelse, 8 * grafik.feltStørrelse);
+        grafik.canvas.setOnMouseClicked(event -> handleMouseClick(event, testBræt));
+
+        Scene scene = new Scene(grafik.vindue, testBræt.brætKoordinater.length * grafik.feltStørrelse, testBræt.brætKoordinater[0].length * grafik.feltStørrelse+(2* grafik.feltStørrelse));
         primaryStage.setTitle("Seize The Zone");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -45,40 +52,25 @@ public class Main extends Application {
     public void handleMouseClick(MouseEvent event, BrætTilstand testBræt) {
         int X = (int) (event.getX() / grafik.feltStørrelse);
         int Y = (int) (event.getY() / grafik.feltStørrelse);
-        if (ValgtX == -1 && ValgtY == -1) {
-            if (!(testBræt.bræt[X][Y]==null)){
-                ValgtX = X;
-                ValgtY = Y;
-                testBræt.valgteFelter.push(testBræt.brætKoordinater[X][Y]);
-                testBræt.opdaterValgteFelter();
+        try {
+            if (ValgtX == -1 && ValgtY == -1) {
+                if (!(testBræt.bræt[X][Y] == null)) {
+                    ValgtX = X;
+                    ValgtY = Y;
+                    aktion.setValue(null);
+                    aktion.setVisible(true);
+                    testBræt.opdaterValgteFelter(testBræt.brætKoordinater[X][Y]);
+                }
+            } else {
+                int[] sidstefeldt = testBræt.valgteFelter.getLast();
+                int lastX = sidstefeldt[0];
+                int lastY = sidstefeldt[1];
+                if (erfeldttæt(X, Y, lastX, lastY)) {
+                    testBræt.opdaterValgteFelter(testBræt.brætKoordinater[X][Y]);
+                }
             }
-        }
-        else {
-            int[] sidstefeldt = testBræt.valgteFelter.getLast();
-            int lastX = sidstefeldt[0];
-            int lastY = sidstefeldt[1];
-            if (erfeldttæt(X, Y, lastX, lastY)) {
-                if (!erfeldtvalgt(X, Y)) {
-                    testBræt.valgteFelter.push(testBræt.brætKoordinater[X][Y]);
-                }
-                else {
-                    while (!testBræt.valgteFelter.isEmpty()) {
-                        int[] top = testBræt.valgteFelter.peek();
-                        if (top[0] == X && top[1] == Y) {
-                            break;
-                        }
-                        testBræt.valgteFelter.pop();
-                    }
-                }
-                aktion.setLayoutX(X * grafik.feltStørrelse );
-                aktion.setLayoutY(Y * grafik.feltStørrelse + grafik.feltStørrelse-30);
-                aktion.setPrefSize(grafik.feltStørrelse, grafik.feltStørrelse-45);
-
-                if (!grafik.vindue.getChildren().contains(aktion)) {
-                    grafik.vindue.getChildren().add(aktion);
-                }
-                testBræt.opdaterValgteFelter();
-            }
+        } catch (Exception e){
+            System.out.println("Klik");
         }
     }
     private void feldthandler() {
@@ -93,14 +85,14 @@ public class Main extends Application {
                 testBræt.opdaterBrætTest(startFelt,sidstefeldt);
                 break;
             case "Cancel":
-                resetvalg();
+                testBræt.opdaterValgteFelter("clear");
                 break;
             default:
                 break;
         }
-        //reseter comboboxen så den samme ting kan vælges to gange i træk.
-        aktion.setValue(null);
         resetvalg();
+
+        //reseter comboboxen så den samme ting kan vælges to gange i træk.
     }
     private boolean erfeldtvalgt(int x, int y) {
         for (int[] square : testBræt.valgteFelter) {
@@ -117,10 +109,7 @@ public class Main extends Application {
     private void resetvalg() {
         ValgtX = -1;
         ValgtY = -1;
-        testBræt.valgteFelter.clear();
-        testBræt.opdaterValgteFelter();
-        grafik.vindue.getChildren().remove(aktion);
-
+        aktion.setVisible(false);
     }
     public static void main(String[] args) {
         launch(args);

@@ -3,6 +3,7 @@ package com.example.board;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.beans.PropertyChangeSupport;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class BrætTilstand {
@@ -54,17 +55,40 @@ public class BrætTilstand {
                     }
 
                 }catch(Exception ignored){}
+                System.out.print(Arrays.toString(this.brætKoordinater[j][i]));
             }
+            System.out.println(" ");
         }
+        System.out.println(" ");
+        System.out.println(" ");
     }
 
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         this.brætÆndring.addPropertyChangeListener(pcl);
     }
-    public void opdaterValgteFelter(){
+    public void opdaterValgteFelter(String clear){
         BrætTilstand orgValgteFelter = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
+        this.valgteFelter.clear();
         this.brætÆndring.firePropertyChange("ValgteFelter",orgValgteFelter,this);
     }
+
+    public void opdaterValgteFelter(int[] nytFelt){
+        BrætTilstand orgValgteFelter = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
+        if (!this.valgteFelter.contains(nytFelt)) {
+            this.valgteFelter.push(nytFelt);
+        } else {
+            while (!this.valgteFelter.isEmpty()) {
+                int[] top = this.valgteFelter.peek();
+                if (top[0] == nytFelt[0] && top[1] == nytFelt[1]) {
+                    break;
+                }
+                this.valgteFelter.pop();
+            }
+        }
+        this.brætÆndring.firePropertyChange("ValgteFelter",orgValgteFelter,this);
+    }
+
+
     public void opdaterBrætTest(int[] orgPos, int[] nyPos){
         BrætTilstand orgBræt = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
         Brikker brik = this.bræt[orgPos[0]][orgPos[1]];
@@ -73,7 +97,7 @@ public class BrætTilstand {
         this.brikKoordinater.add(nyPos);
         this.brikKoordinater.remove(orgPos);
         this.valgteFelter.clear();
-        this.brætÆndring.firePropertyChange("brikker",orgBræt , this);
+        this.brætÆndring.firePropertyChange("brikker", orgBræt, this);
     }
 }
 
