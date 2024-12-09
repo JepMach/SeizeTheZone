@@ -21,10 +21,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        spillerBrikker1.add(new Brikker("QuarterBack"));
-        spillerBrikker1.add(new Brikker("LineMan"));
-        spillerBrikker2.add(new Brikker("QuarterBack"));
-        spillerBrikker2.add(new Brikker("LineMan"));
+        spillerBrikker1.add(new Brikker("QB"));
+        spillerBrikker1.add(new Brikker("LM"));
+        spillerBrikker2.add(new Brikker("QB"));
+        spillerBrikker2.add(new Brikker("LM"));
 
         brætBrikker.add(spillerBrikker1);
         brætBrikker.add(spillerBrikker2);
@@ -37,13 +37,13 @@ public class Main extends Application {
         grafik.vindue.getChildren().add(aktion);
         aktion.setLayoutX(testBræt.brætKoordinater.length * grafik.feltStørrelse - (3 * grafik.feltStørrelse));
         aktion.setLayoutY(testBræt.brætKoordinater[0].length * grafik.feltStørrelse + grafik.feltStørrelse/4);
-        aktion.setPrefSize(grafik.feltStørrelse*2, grafik.feltStørrelse/2);
+        aktion.setPrefSize(grafik.feltStørrelse*2, grafik.feltStørrelse/3);
         aktion.setVisible(false);
         aktion.getItems().addAll("Move Here", "Cancel");
         aktion.setOnAction(e -> feldthandler());
         grafik.canvas.setOnMouseClicked(event -> handleMouseClick(event, testBræt));
 
-        Scene scene = new Scene(grafik.vindue, testBræt.brætKoordinater.length * grafik.feltStørrelse, testBræt.brætKoordinater[0].length * grafik.feltStørrelse+(2* grafik.feltStørrelse));
+        Scene scene = new Scene(grafik.vindue, testBræt.brætKoordinater.length * grafik.feltStørrelse, testBræt.brætKoordinater[0].length * grafik.feltStørrelse+grafik.feltStørrelse);
         primaryStage.setTitle("Seize The Zone");
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -7,7 +7,24 @@
     <list default="true" id="bf66fc8e-a753-4e15-94a8-9bfa616aac09" name="Changes" comment="a">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/BrætTilstand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Grafik.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/board/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/BasicPiece.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/Bold.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/Brik.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/BruntFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/GrøntFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HighlightedPiece.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HighlightedTile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/HvidtFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/MålFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Sprites/MørkeGrøntFelt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Brik.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Bræt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/BrætTilstand.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/BrætTilstand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Felt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/board/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/board/SpilObjekt.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +47,20 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "JepMach"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="efe73aa8-38bd-4cc6-8512-39f34db93c9f" />
+        <option name="url" value="https://github.com/JepMach/SeizeTheZone.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -41,27 +72,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Grafik-og-interface&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeppe/Desktop/RUC/SeizeTheZone&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "extractMethod.generateAnnotations": "false",
+    "git-widget-placeholder": "Grafik-og-interface",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/jeppe/Desktop/RUC/SeizeTheZone",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\jeppe\Desktop\RUC\SeizeTheZone" />
@@ -79,7 +111,7 @@
       <workItem from="1731408661717" duration="197000" />
       <workItem from="1731408868462" duration="234000" />
       <workItem from="1733476902800" duration="20126000" />
-      <workItem from="1733679185413" duration="5737000" />
+      <workItem from="1733679185413" duration="15068000" />
     </task>
     <task id="LOCAL-00001" summary="a">
       <option name="closed" value="true" />
@@ -145,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733498185175</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="a">
+      <option name="closed" value="true" />
+      <created>1733704835877</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733704835877</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

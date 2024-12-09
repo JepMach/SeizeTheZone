@@ -6,8 +6,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Stack;
 public class Grafik implements PropertyChangeListener{
@@ -27,107 +25,118 @@ public class Grafik implements PropertyChangeListener{
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        sætGrafik((BrætTilstand) evt.getNewValue());
-    }
+        BrætTilstand brætTilstand = (BrætTilstand) evt.getNewValue();
+        BrætTilstand orgBræt = (BrætTilstand) evt.getOldValue();
 
+        switch (evt.getPropertyName()){
+            case "TilføjFelter":
+                for (int[] felt: brætTilstand.valgteFelter){
+                    getValgteGrafik(brætTilstand,felt[0],felt[1]);
+                }
+                break;
+            case "FjernFelter":
+                for (int[] felt: orgBræt.valgteFelter){
+                    getValgteGrafik(brætTilstand,felt[0],felt[1]);
+                }
+                break;
+            case "FlytBrikker":
+                for (int[] felt: orgBræt.valgteFelter){
+                    getValgteGrafik(brætTilstand,felt[0],felt[1]);
+                }
+                for (int[] felt: brætTilstand.brikKoordinater){
+                    getBasicGrafik(brætTilstand,felt[0],felt[1]);
+                }
+                break;
+        }
+    }
     void sætGrafik(BrætTilstand brætTilstand){
         Brikker[][] brikPositioner = brætTilstand.bræt;
-        ArrayList<ArrayList<Brikker>> spillerBrikker = brætTilstand.spillerBrikker;
-        int [][][] brætKoordinater = brætTilstand.brætKoordinater;
         for (int i=0; i<brikPositioner[1].length;i++){
             for (int j=0; j<brikPositioner.length;j++){
-                String feltBillede;
-                if (j==0 || j==brikPositioner.length-1){
-                    feltBillede = "MålFelt";
-                }
-                else if ((j+i)%2==0){
-                    feltBillede = "Grøn";
-                }
-                else {
-                    feltBillede = "MørkeGrøn";
-                }
-                feltGrafik(feltBillede,j*feltStørrelse,i*feltStørrelse);
-
-                try {
-                    if (brætTilstand.valgteFelter.contains(brætKoordinater[j][i])) {
-                        Image image;
-                        if (brætKoordinater[j][i] == brætTilstand.valgteFelter.getFirst()) {
-                            image = new Image("C:STZBilleder\\ValgtSpiller.png");
-                            gC.drawImage(image, j * feltStørrelse, i * feltStørrelse, feltStørrelse, feltStørrelse);
-                        } else {
-                            image = new Image("C:STZBilleder\\HighlightedTile.png");
-                            gC.drawImage(image, j * feltStørrelse, i * feltStørrelse, feltStørrelse, feltStørrelse);
-                        }
-                    }
-                } catch (Exception ignored){}
-
-                if (brikPositioner[j][i]==null)continue;
-
-                String brikBillede;
-                if (Objects.equals(brikPositioner[j][i].navn, "Bold")) {
-                    brikBillede = "Bold";
-                    brikGrafik(brikBillede, "N/A", "N/A", j * feltStørrelse, i * feltStørrelse);
-                }
-                brikBillede = brikPositioner[j][i].navn;
-                String holdFarve;
-                if (spillerBrikker.getLast().contains(brikPositioner[j][i])) {
-                    holdFarve = "Blå";
-                } else {
-                    holdFarve = "Rød";
-                }
-                String brikStatus;
-                if (brikPositioner[j][i].væltet) {
-                    brikStatus = "Væltet";
-                } else if (brikPositioner[j][i].harBold) {
-                    brikStatus = "HarBold";
-                } else {
-                    brikStatus = "N/A";
-                }
-                brikGrafik(brikBillede, holdFarve, brikStatus, j * feltStørrelse, i * feltStørrelse);
+                getBasicGrafik(brætTilstand,j,i);
             }
         }
     }
+    void getBasicGrafik(BrætTilstand brætTilstand, int x, int y){
+        Image image = getFeltBillede(brætTilstand, x, y);
+        gC.drawImage(image,x*feltStørrelse,y*feltStørrelse, feltStørrelse, feltStørrelse);
+        if (brætTilstand.bræt[x][y]==null)return;
 
-    void feltGrafik(String feltType, int x, int y){
-        Image image = switch (feltType) {
+        image = getBrikBillede(brætTilstand,x,y);
+        if (brætTilstand.spillerBrikker.getLast().contains(brætTilstand.bræt[x][y])) {
+            gC.drawImage(image,x*feltStørrelse,y*feltStørrelse, feltStørrelse, feltStørrelse);
+        } else {
+            gC.drawImage(image,x*feltStørrelse+feltStørrelse,y*feltStørrelse, -feltStørrelse, feltStørrelse);
+        }
+
+        image = getStatusBillede(brætTilstand,x,y);
+        try {
+            gC.drawImage(image,x*feltStørrelse,y*feltStørrelse, feltStørrelse, feltStørrelse);
+        } catch (Exception ignored){}
+    }
+    private Image getFeltBillede(BrætTilstand brætTilstand, int x, int y) {
+        String feltBillede;
+        if (x ==0 || x == brætTilstand.bræt.length-1){
+            feltBillede = "MålFelt";
+        }
+        else if ((x + y)%2==0){
+            feltBillede = "Grøn";
+        }
+        else {
+            feltBillede = "MørkeGrøn";
+        }
+        return switch (feltBillede) {
             case "MålFelt" -> new Image("C:STZBilleder/MålFelt.png");
             case "Grøn" -> new Image("C:STZBilleder/GrøntFelt.png");
             case "MørkeGrøn" -> new Image("C:STZBilleder/MørkeGrøntFelt.png");
             default -> null;
         };
-        gC.drawImage(image,x,y, feltStørrelse, feltStørrelse);
     }
-    void brikGrafik(String brikNavn, String holdFarve, String brikStatus, int x, int y){
-        Image image;
-        switch (brikNavn) {
-            case "Bold":
-                image = new Image("C:STZBilleder/Bold.png");
-                gC.drawImage(image,x,y, feltStørrelse, feltStørrelse);
-                return;
-            case "QuarterBack":
-                image = new Image("C:STZBilleder/"+holdFarve+"QB.png");
-                break;
-            case "LineMan":
-                image = new Image("C:STZBilleder/"+holdFarve+"LM.png");
-                break;
-            default:
-                return;
-        }
-        if (Objects.equals(holdFarve, "Blå")){
-            gC.drawImage(image,x,y, feltStørrelse, feltStørrelse);
+    private Image getBrikBillede(BrætTilstand brætTilstand, int x, int y){
+        String brikBillede = brætTilstand.bræt[x][y].navn;
+        String holdFarve;
+        if (brætTilstand.spillerBrikker.getLast().contains(brætTilstand.bræt[x][y])) {
+            holdFarve = "Blå";
         } else {
-            gC.drawImage(image,x+feltStørrelse,y, -feltStørrelse, feltStørrelse);
+            holdFarve = "Rød";
         }
-        switch (brikStatus) {
-            case "Væltet":
-                image = new Image("C:STZBilleder/Væltet.png");
-                break;
-            case "HarBold":
-                image = new Image("C:STZBilleder/SpillerBold.png");
-                break;
-            default:
-                return;
+        if (Objects.equals(brætTilstand.bræt[x][y].navn, "Bold")) {
+            return new Image("C:STZBilleder/Bold.png");
+        } else {
+            return new Image("C:STZBilleder/"+holdFarve+brikBillede+".png");
         }
-        gC.drawImage(image,x,y, feltStørrelse, feltStørrelse);
+    }
+    private Image getStatusBillede(BrætTilstand brætTilstand, int x, int y){
+        String brikStatus;
+        if (brætTilstand.bræt[x][y].væltet) {
+            brikStatus = "Væltet";
+        } else if (brætTilstand.bræt[x][y].harBold) {
+            brikStatus = "HarBold";
+        } else {
+            brikStatus = "N/A";
+        }
+        return switch (brikStatus) {
+            case "Væltet" -> new Image("C:STZBilleder/Væltet.png");
+            case "HarBold" -> new Image("C:STZBilleder/SpillerBold.png");
+            default -> null;
+        };
+    }
+    void getValgteGrafik(BrætTilstand brætTilstand, int x, int y){
+        getBasicGrafik(brætTilstand,x,y);
+        if (!brætTilstand.valgteFelter.contains(brætTilstand.brætKoordinater[x][y])){
+            return;
+        }
+        String feltFyldt;
+        if (brætTilstand.bræt[x][y]==null){
+            feltFyldt="Tomt";
+        } else {
+            feltFyldt="Brik";
+        }
+        Image image = switch (feltFyldt) {
+            case "Brik" -> new Image("C:STZBilleder\\ValgtSpiller.png");
+            case "Tomt" -> new Image("C:STZBilleder\\HighlightedTile.png");
+            default -> null;
+        };
+        gC.drawImage(image,x*feltStørrelse,y*feltStørrelse, feltStørrelse, feltStørrelse);
     }
 }

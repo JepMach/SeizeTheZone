@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Stack;
 
 public class BrætTilstand {
@@ -36,31 +37,30 @@ public class BrætTilstand {
             for (int j=0;j<brætX;j++){
                 this.bræt[j][i]=null;
                 this.brætKoordinater[j][i]= new int[]{j,i};
-
                 try{
                     if (j==3 && i==3+brikNr) {
                         this.bræt[j][i] = this.spillerBrikker.get(spillerNr).get(brikNr);
-                        this.brikKoordinater.add(new int[]{j,i});
+                        this.brikKoordinater.add(this.brætKoordinater[j][i]);
                         spillerNr++;
                     }
                     if (j==brætX-4 && i==3+brikNr){
                         this.bræt[j][i] = this.spillerBrikker.get(spillerNr).get(brikNr);
-                        this.brikKoordinater.add(new int[]{j,i});
+                        this.brikKoordinater.add(this.brætKoordinater[j][i]);
                         spillerNr--;
                         brikNr++;
                     }
                     if (j==6 && i==3){
                         this.bræt[j][i] = bold;
-                        this.brikKoordinater.add(new int[]{j,i});
+                        this.brikKoordinater.add(this.brætKoordinater[j][i]);
                     }
 
                 }catch(Exception ignored){}
-                System.out.print(Arrays.toString(this.brætKoordinater[j][i]));
+                //System.out.print(Arrays.toString(this.brætKoordinater[j][i]));
             }
-            System.out.println(" ");
+            //System.out.println(" ");
         }
-        System.out.println(" ");
-        System.out.println(" ");
+        //System.out.println(" ");
+        //System.out.println(" ");
     }
 
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
@@ -68,36 +68,46 @@ public class BrætTilstand {
     }
     public void opdaterValgteFelter(String clear){
         BrætTilstand orgValgteFelter = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
+        orgValgteFelter.valgteFelter.addAll(this.valgteFelter);
         this.valgteFelter.clear();
-        this.brætÆndring.firePropertyChange("ValgteFelter",orgValgteFelter,this);
+        this.brætÆndring.firePropertyChange("FjernFelter",orgValgteFelter,this);
     }
 
     public void opdaterValgteFelter(int[] nytFelt){
         BrætTilstand orgValgteFelter = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
         if (!this.valgteFelter.contains(nytFelt)) {
             this.valgteFelter.push(nytFelt);
-        } else {
-            while (!this.valgteFelter.isEmpty()) {
-                int[] top = this.valgteFelter.peek();
-                if (top[0] == nytFelt[0] && top[1] == nytFelt[1]) {
-                    break;
-                }
-                this.valgteFelter.pop();
-            }
+            this.brætÆndring.firePropertyChange("TilføjFelter",orgValgteFelter,this);
+            return;
         }
-        this.brætÆndring.firePropertyChange("ValgteFelter",orgValgteFelter,this);
+        orgValgteFelter.valgteFelter.addAll(this.valgteFelter);
+        while (!this.valgteFelter.isEmpty()) {
+            int[] top = this.valgteFelter.peek();
+            if (top[0] == nytFelt[0] && top[1] == nytFelt[1]) {
+                break;
+            }
+            this.valgteFelter.pop();
+        }
+        this.brætÆndring.firePropertyChange("FjernFelter",orgValgteFelter,this);
     }
 
 
     public void opdaterBrætTest(int[] orgPos, int[] nyPos){
         BrætTilstand orgBræt = new BrætTilstand(this.spillerBrikker,this.bræt.length,this.bræt[1].length,this.actionPoints[0],this.actionPoints[1]);
         Brikker brik = this.bræt[orgPos[0]][orgPos[1]];
+        try {
+            if (Objects.equals(this.bræt[nyPos[0]][nyPos[1]].navn, "Bold")){
+                brik.harBold=true;
+            }
+        } catch (Exception ignored){}
         this.bræt[orgPos[0]][orgPos[1]]=null;
         this.bræt[nyPos[0]][nyPos[1]]=brik;
-        this.brikKoordinater.add(nyPos);
-        this.brikKoordinater.remove(orgPos);
+        this.brikKoordinater.remove(this.brætKoordinater[orgPos[0]][orgPos[1]]);
+        this.brikKoordinater.add(this.brætKoordinater[nyPos[0]][nyPos[1]]);
+        orgBræt.valgteFelter.addAll(this.valgteFelter);
         this.valgteFelter.clear();
-        this.brætÆndring.firePropertyChange("brikker", orgBræt, this);
+        this.brætÆndring.firePropertyChange("FlytBrikker", orgBræt, this);
+
     }
 }
 
